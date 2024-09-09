@@ -10,7 +10,7 @@ namespace MbaBlog.Mvc.Data.Configurations
         public void Configure(EntityTypeBuilder<Autor> builder)
         {
             builder.ToTable("Autores");
-            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id);
             builder.Property(p => p.Nome).HasColumnType("VARCHAR(100)").IsRequired();
             builder.Property(p => p.Email).HasColumnType("VARCHAR(25)").IsRequired();
 
