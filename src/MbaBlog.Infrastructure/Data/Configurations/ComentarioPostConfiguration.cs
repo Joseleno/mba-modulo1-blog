@@ -11,7 +11,8 @@ namespace MbaBlog.Mvc.Data.Configurations
             builder.ToTable("Comentarios");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.PostId).IsRequired();
-            builder.Property(p => p.Comentario).HasColumnType("VARCHAR(200)").IsRequired();
+            builder.Property(p => p.AutorId);
+            builder.Property(p => p.Comentario).HasColumnType("VARCHAR(MAX)").IsRequired();
         }
     }
 }

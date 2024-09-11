@@ -10,14 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MbaBlog.Infrastructure.Services.Posts
+namespace MbaBlog.Infrastructure.Repositorys.Posts
 {
-    public class ServicePost : IServicePost
+    public class RepositoryPost : IRepositoryPost
     {
         private readonly MbaBlogDbContext _ctx;
         private readonly ApplicationDbContext _appctx;
 
-        public ServicePost(MbaBlogDbContext ctx, ApplicationDbContext appctx)
+        public RepositoryPost(MbaBlogDbContext ctx, ApplicationDbContext appctx)
         {
             _ctx = ctx;
             _appctx = appctx;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MbaBlog.Infrastructure.Services.Comentarios
+namespace MbaBlog.Infrastructure.Repositorys.Comentarios
 {
-    public interface IServiceComentario
+    public interface IRepositoryComentario
     {
     }
 }

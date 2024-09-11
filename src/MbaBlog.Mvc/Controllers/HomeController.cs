@@ -13,10 +13,6 @@ namespace MbaBlog.Mvc.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAppIdentityUser _appIdentityUser;
 
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
         public HomeController(ILogger<HomeController> logger, IAppIdentityUser appIdentityUser)
         {
             _logger = logger;
@@ -28,12 +24,13 @@ namespace MbaBlog.Mvc.Controllers
 
             var userId = _appIdentityUser.GetUserId();
             var username = _appIdentityUser.GetUsername();
-            ViewData["userId"] = _appIdentityUser.GetUserId();
-            ViewData["username"] = _appIdentityUser.GetUsername();
+            if(userId != Guid.Empty)
+            {
+                ViewData["userId"] = _appIdentityUser.GetUserId();
+                ViewData["username"] = _appIdentityUser.GetUsername();
+            }
             return View();
 
-
-            //return Content("User");
         }
 
         [Authorize]
