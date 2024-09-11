@@ -14,7 +14,7 @@ namespace MbaBlog.Mvc.Data.Configurations
             builder.Property(p => p.Nome).HasColumnType("VARCHAR(100)").IsRequired();
             builder.Property(p => p.Email).HasColumnType("VARCHAR(25)").IsRequired();
 
-            builder.HasIndex(i => i.Email).HasName("idx_cliente_email");
+            builder.HasIndex(i => i.Email).HasName("idx_cliente_email").IsUnique();
 
             builder.HasMany(p => p.Posts)
                 .WithOne(p => p.Autor)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MbaBlog.Infrastructure.Services.Comentarios
 {
-    internal interface IServiceComentario
+    public interface IServiceComentario
     {
     }
 }

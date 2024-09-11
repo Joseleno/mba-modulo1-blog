@@ -12,11 +12,13 @@ namespace MbaBlog.Mvc
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            
-            
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services
                 .AddInfrastructure(builder.Configuration)
                 .AddControllersWithViews();
+
+            builder.Services.AjoutDepen();
 
             var app = builder.Build();
 
