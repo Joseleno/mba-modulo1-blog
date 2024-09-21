@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-MbaBlog.Mvc-619e8e5e-e9de-4961-be51-668312b665f2</UserSecretsId>
+    <UserSecretsId>aspnet-MbaBlog</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

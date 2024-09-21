@@ -2,17 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MbaBlog.Mvc.Data.Configurations
+namespace MbaBlog.Infrastructure.Data.Configurations;
+
+public class ComentarioPostConfiguration : IEntityTypeConfiguration<ComentarioPost>
 {
-    public class ComentarioPostConfiguration : IEntityTypeConfiguration<ComentarioPost>
+    public void Configure(EntityTypeBuilder<ComentarioPost> builder)
     {
-        public void Configure(EntityTypeBuilder<ComentarioPost> builder)
-        {
-            builder.ToTable("Comentarios");
-            builder.HasKey(p => p.Id);
-            builder.Property(p => p.PostId).IsRequired();
-            builder.Property(p => p.AutorId);
-            builder.Property(p => p.Comentario).HasColumnType("VARCHAR(MAX)").IsRequired();
-        }
+        builder.ToTable("Comentarios");
+        builder.HasKey(p => p.Id);
+        builder.Property(p => p.PostId).IsRequired();
+        builder.Property(p => p.AutorId).HasColumnType("VARCHAR(450)").IsRequired();
+        builder.Property(p => p.Comentario).HasColumnType("VARCHAR(512)").IsRequired();
     }
 }

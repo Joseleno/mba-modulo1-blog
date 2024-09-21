@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Humanizer;
 using MbaBlog.Domain.Domain;
+using MbaBlog.Infrastructure.Data;
 using MbaBlog.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -10,50 +11,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MbaBlog.Infrastructure.Repositorys.Posts
+namespace MbaBlog.Infrastructure.Repositorys.Posts;
+
+public class RepositoryPost(MbaBlogDbContext ctx, ApplicationDbContext appctx) : IRepositoryPost
 {
-    public class RepositoryPost : IRepositoryPost
+    private readonly MbaBlogDbContext _ctx = ctx;
+    private readonly ApplicationDbContext _appctx = appctx;
+
+    public async Task<Post> CreatePost(string userId, Post post)
     {
-        private readonly MbaBlogDbContext _ctx;
-        private readonly ApplicationDbContext _appctx;
+        
+        //var author = await _context.Bloggers.FirstOrDefaultAsync(b => b.UserId == userId);
+        var user = await _appctx.Users.FirstOrDefaultAsync(b => b.Id == userId);
 
-        public RepositoryPost(MbaBlogDbContext ctx, ApplicationDbContext appctx)
-        {
-            _ctx = ctx;
-            _appctx = appctx;
-        }
+        
+        
+        var result = new Post() { AutorId = userId, Texto = post.Texto, Titulo = post.Titulo};
 
-        public async Task<Post> CreatePost(string email, Post post)
-        {
-            
-            //var author = await _context.Bloggers.FirstOrDefaultAsync(b => b.UserId == userId);
-            var user = await _appctx.Users.FirstOrDefaultAsync(b => b.UserName!.Equals(email, StringComparison.OrdinalIgnoreCase));
+        _ctx.Posts.Add(post);
+        await _ctx.SaveChangesAsync();
 
-            
-            
-            var result = new Post() { AutorId = Guid.NewGuid(), Texto = post.Texto, Titulo = post.Titulo};
+        return result;
+    }
 
-            _ctx.Posts.Add(post);
-            await _ctx.SaveChangesAsync();
+    public Task<Post> EditPost(string userId, Post post)
+    {
+        throw new NotImplementedException();
+    }
 
-            return result;
-        }
+    public Task<Post> GetPostById(Guid postId)
+    {
+        throw new NotImplementedException();
+    }
 
-        public Task<Post> EditPost(Guid userId, Post post)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<IEnumerable<Post>> GetPostsByIdAutor(Guid userId)
+    {
+        var result = await _ctx.Posts.Where( p => p.AutorId.Equals(userId.ToString(), StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
 
-        public Task<Post> GetPostById(Guid postId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Post>> GetPostsByIdAutor(string email)
-        {
-            var result = await _ctx.Posts.Where( p => p.Autor!.Email.Equals(email, StringComparison.OrdinalIgnoreCase)).ToListAsync();
-
-            return result;
-        }
+        return result;
     }
 }

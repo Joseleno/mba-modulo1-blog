@@ -1,27 +1,20 @@
 ﻿using MbaBlog.Domain.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace MbaBlog.Mvc.Data
+namespace MbaBlog.Infrastructure.Data;
+
+public class MbaBlogDbContext(DbContextOptions<MbaBlogDbContext> options) : DbContext(options)
 {
-    public class MbaBlogDbContext : DbContext
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<ComentarioPost> Comentarios { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        public DbSet<Autor> Autores { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<ComentarioPost> Comentarios { get; set; }
-        
-        public MbaBlogDbContext(DbContextOptions<MbaBlogDbContext> options)
-            : base(options)
-        {
-        }
+        //builder.ApplyConfiguration(new AutorConfiguration());
+        //builder.ApplyConfiguration(new PostConfiguration());
+        //builder.ApplyConfiguration(new ComentarioPostConfiguration());
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            //builder.ApplyConfiguration(new AutorConfiguration());
-            //builder.ApplyConfiguration(new PostConfiguration());
-            //builder.ApplyConfiguration(new ComentarioPostConfiguration());
-
-            builder.ApplyConfigurationsFromAssembly(typeof(MbaBlogDbContext).Assembly);
-        }
-
+        builder.ApplyConfigurationsFromAssembly(typeof(MbaBlogDbContext).Assembly);
     }
+
 }

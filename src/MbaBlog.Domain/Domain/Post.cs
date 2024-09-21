@@ -4,8 +4,7 @@ namespace MbaBlog.Domain.Domain
 {
     public class Post : EntityBase
     {
-        public Guid AutorId { get; set; }
-        public Autor? Autor { get; set; }
+        public required string AutorId { get; set; }
         public DateTime CriadoEm { get; set; }
         public DateTime ModificadoEm { get; set; }
         public required string Titulo { get; set; }
