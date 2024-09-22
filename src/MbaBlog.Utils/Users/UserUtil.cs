@@ -1,17 +1,13 @@
-﻿using MbaBlog.Domain.Domain;
-using MbaBlog.Infrastructure;
+﻿using MbaBlog.Infrastructure;
+using MbaBlog.Infrastructure.Repositorys.UserRole;
 using MbaBlog.Utils.Users.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MbaBlog.Utils.Users;
 
-public class UserUtil(IAppIdentityUser appIdentityUser) : IUserUtil
+public class UserUtil(IAppIdentityUser appIdentityUser, IRepositoryUserRole iUserRole) : IUserUtil
 {
     private readonly IAppIdentityUser _appIdentityUser = appIdentityUser;
+    private readonly IRepositoryUserRole _iUserRole = iUserRole;
     public UserDto GetUser()
     {
         var userId = _appIdentityUser.GetUserId();
@@ -26,7 +22,21 @@ public class UserUtil(IAppIdentityUser appIdentityUser) : IUserUtil
 
     public bool HasAthorization(Guid id)
     {
-        var resultId = _appIdentityUser.GetUserId();
-        return resultId == id;
+       
+        var usertId = _appIdentityUser.GetUserId();
+        var result = usertId == id || IsAdmin(usertId);
+        return result;
     }
+
+    private bool IsAdmin(Guid id)
+    {
+        var role = _iUserRole.GetRole(id);
+        if (role == null)
+        {
+            return false;
+        }
+        var result = role.Equals("admin", StringComparison.OrdinalIgnoreCase);
+        return result;
+    }
+
 }

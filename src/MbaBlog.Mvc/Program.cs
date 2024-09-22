@@ -1,4 +1,5 @@
 using MbaBlog.Infrastructure;
+using MbaBlog.Mvc.Extensions;
 
 namespace MbaBlog.Mvc
 {
@@ -43,6 +44,8 @@ namespace MbaBlog.Mvc
                 name: "default",
                 pattern: "{controller=Posts}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            app.UseDbMigrationHelper();
 
             app.Run();
         }

@@ -22,4 +22,8 @@
     <ProjectReference Include="..\MbaBlog.Domain\MbaBlog.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositorys\UserRoles\" />
+  </ItemGroup>
+
 </Project>

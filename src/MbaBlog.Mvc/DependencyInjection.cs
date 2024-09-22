@@ -1,6 +1,7 @@
 ﻿
 using MbaBlog.Infrastructure;
 using MbaBlog.Infrastructure.Repositorys.Posts;
+using MbaBlog.Infrastructure.Repositorys.UserRole;
 using MbaBlog.Utils.Users;
 
 namespace MbaBlog.Mvc
@@ -11,6 +12,7 @@ namespace MbaBlog.Mvc
         {
             services.AddScoped<IAppIdentityUser, AppIdentityUser>();
             services.AddScoped<IRepositoryPost, RepositoryPost>();
+            services.AddScoped<IRepositoryUserRole, RepositoryUserRole>();
 
             return services;
         }
