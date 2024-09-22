@@ -1,6 +1,5 @@
-using MbaBlog.Mvc.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using MbaBlog.Infrastructure;
+using MbaBlog.Mvc.Extensions;
 
 namespace MbaBlog.Mvc
 {
@@ -11,16 +10,14 @@ namespace MbaBlog.Mvc
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDbContext<MbaBlogDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            builder.Services.AddHttpContextAccessor();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddInfrastructure(builder.Configuration)
+                .AddControllersWithViews();
+
+            builder.Services.AdicionarRepositorio();
+            builder.Services.AdicionarUtils();
 
             var app = builder.Build();
 
@@ -45,8 +42,10 @@ namespace MbaBlog.Mvc
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Posts}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+            app.UseDbMigrationHelper();
 
             app.Run();
         }
