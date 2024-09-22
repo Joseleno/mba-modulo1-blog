@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MbaBlog.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SegundaMigration : Migration
+    public partial class AjusteIdsMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AutorId = table.Column<string>(type: "VARCHAR(450)", nullable: false),
+                    AutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     ModificadoEm = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Titulo = table.Column<string>(type: "VARCHAR(30)", nullable: false),
@@ -33,7 +33,7 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AutorId = table.Column<string>(type: "VARCHAR(450)", nullable: false),
+                    AutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Comentario = table.Column<string>(type: "VARCHAR(512)", nullable: false)
                 },
                 constraints: table =>

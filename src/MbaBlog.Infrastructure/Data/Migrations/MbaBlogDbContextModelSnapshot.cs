@@ -28,9 +28,8 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AutorId")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(450)");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comentario")
                         .IsRequired()
@@ -52,9 +51,8 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AutorId")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(450)");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()

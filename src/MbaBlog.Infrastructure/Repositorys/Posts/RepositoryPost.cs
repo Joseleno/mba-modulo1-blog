@@ -5,6 +5,7 @@ using MbaBlog.Infrastructure.Data;
 using MbaBlog.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,40 +14,52 @@ using System.Threading.Tasks;
 
 namespace MbaBlog.Infrastructure.Repositorys.Posts;
 
-public class RepositoryPost(MbaBlogDbContext ctx, ApplicationDbContext appctx) : IRepositoryPost
+public class RepositoryPost(MbaBlogDbContext myBlogContext, ApplicationDbContext appctx) : IRepositoryPost
 {
-    private readonly MbaBlogDbContext _ctx = ctx;
+    private readonly MbaBlogDbContext _myBlogContext = myBlogContext;
     private readonly ApplicationDbContext _appctx = appctx;
 
-    public async Task<Post> CreatePost(string userId, Post post)
+    public async Task<Post> CreatePost(Post post)
     {
-        
-        //var author = await _context.Bloggers.FirstOrDefaultAsync(b => b.UserId == userId);
-        var user = await _appctx.Users.FirstOrDefaultAsync(b => b.Id == userId);
+        _myBlogContext.Posts.Add(post);
+        await _myBlogContext.SaveChangesAsync();
 
-        
-        
-        var result = new Post() { AutorId = userId, Texto = post.Texto, Titulo = post.Titulo};
-
-        _ctx.Posts.Add(post);
-        await _ctx.SaveChangesAsync();
-
-        return result;
+        return post;
     }
 
-    public Task<Post> EditPost(string userId, Post post)
+    public async Task Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var post = await GetPostById(id);
+        if (post != null)
+        {
+            _myBlogContext.Remove(post);
+        }
+
+        await _myBlogContext.SaveChangesAsync();
+        
     }
 
-    public Task<Post> GetPostById(Guid postId)
+    public async Task<Post> EditPost(Post post)
     {
-        throw new NotImplementedException();
+        _myBlogContext.Posts.Update(post);
+        await _myBlogContext.SaveChangesAsync();
+
+        return post;
+    }
+
+    public async Task<Post?> GetPostById(Guid postId)
+    {
+        return await _myBlogContext.Posts.SingleOrDefaultAsync(p => p.Id == postId);
+    }
+
+    public async Task<IEnumerable<Post>> GetPosts()
+    {
+        return await _myBlogContext.Posts.ToListAsync();
     }
 
     public async Task<IEnumerable<Post>> GetPostsByIdAutor(Guid userId)
     {
-        var result = await _ctx.Posts.Where( p => p.AutorId.Equals(userId.ToString(), StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+        var result = await _myBlogContext.Posts.Where( p => p.AutorId.Equals(userId)).ToListAsync();
 
         return result;
     }

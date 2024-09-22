@@ -11,7 +11,7 @@ public class ComentarioPostConfiguration : IEntityTypeConfiguration<ComentarioPo
         builder.ToTable("Comentarios");
         builder.HasKey(p => p.Id);
         builder.Property(p => p.PostId).IsRequired();
-        builder.Property(p => p.AutorId).HasColumnType("VARCHAR(450)").IsRequired();
+        builder.Property(p => p.AutorId).IsRequired();
         builder.Property(p => p.Comentario).HasColumnType("VARCHAR(512)").IsRequired();
     }
 }

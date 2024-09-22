@@ -1,7 +1,4 @@
 using MbaBlog.Infrastructure;
-using MbaBlog.Mvc.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace MbaBlog.Mvc
 {
@@ -18,7 +15,8 @@ namespace MbaBlog.Mvc
                 .AddInfrastructure(builder.Configuration)
                 .AddControllersWithViews();
 
-            builder.Services.AjoutDepen();
+            builder.Services.AdicionarRepositorio();
+            builder.Services.AdicionarUtils();
 
             var app = builder.Build();
 
@@ -43,7 +41,7 @@ namespace MbaBlog.Mvc
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Posts}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();

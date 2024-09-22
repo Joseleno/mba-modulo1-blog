@@ -17,11 +17,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MbaBlog.Domain\MbaBlog.Domain.csproj" />
     <ProjectReference Include="..\MbaBlog.Infrastructure\MbaBlog.Infrastructure.csproj" />
+    <ProjectReference Include="..\MbaBlog.Utils\MbaBlog.Utils.csproj" />
   </ItemGroup>
 
 </Project>

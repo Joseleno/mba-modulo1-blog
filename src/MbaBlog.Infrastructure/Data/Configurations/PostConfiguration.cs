@@ -10,7 +10,7 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
     {
         builder.ToTable("Posts");
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.AutorId).HasColumnType("VARCHAR(450)");
+        builder.Property(p => p.AutorId).IsRequired();
         builder.Property(p => p.CriadoEm).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
         builder.Property(p => p.ModificadoEm).HasDefaultValueSql("GETDATE()").ValueGeneratedOnUpdate();
         builder.Property(p => p.Titulo).HasColumnType("VARCHAR(30)").IsRequired();

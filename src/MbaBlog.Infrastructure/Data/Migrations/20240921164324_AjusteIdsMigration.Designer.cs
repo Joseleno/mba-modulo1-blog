@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MbaBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MbaBlogDbContext))]
-    [Migration("20240921143304_SegundaMigration")]
-    partial class SegundaMigration
+    [Migration("20240921164324_AjusteIdsMigration")]
+    partial class AjusteIdsMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,8 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AutorId")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(450)");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comentario")
                         .IsRequired()
@@ -55,9 +54,8 @@ namespace MbaBlog.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AutorId")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(450)");
+                    b.Property<Guid>("AutorId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
