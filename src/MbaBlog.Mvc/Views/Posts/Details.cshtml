@@ -1,10 +1,8 @@
 ﻿@model MbaBlog.Domain.Domain.Post
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
-
-<h1>Details</h1>
 
 <div>
     <h4>Post</h4>
@@ -13,18 +11,41 @@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-12">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Texto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-12">
             @Html.DisplayFor(model => model.Texto)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </dt>
+        @foreach (var item in Model.Comentarios)
+        {
+            <div>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </dd>
+            </div>
+            <div>
+                <a asp-controller="Commentarios" asp-action="Edit" asp-route-id="@item.Id"><input type="button" value="Alterar" class="btn btn-warning" size="5" /></a> |
+                <a asp-controller="Commentarios" asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Excluir" class="btn btn-danger" size="5" /></a>
+            </div>
+        }
+    </dl>
+</div>
+<div >
+    <dl>
+        <dd>
+            <a asp-controller="Commentarios" asp-action="Create" asp-route-id="@Model?.Id"><input type="button" value="Novo Comentario" class="btn btn-primary" size="5" /></a>
+        </dd>
+    
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id"><input type="button" value="Editar Post" class="btn btn-info" size="5" /></a> |
+    <a asp-action="Index"><input type="button" value="Voltar ao Inicio" class="btn btn-light" size="5" /></a>
 </div>

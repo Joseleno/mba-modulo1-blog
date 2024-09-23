@@ -66,22 +66,24 @@ namespace MbaBlog.Mvc.Helpers
                 return;
             }
 
-            var id = Guid.NewGuid();
+            var postId = Guid.NewGuid();
+            var postId2 = Guid.NewGuid();
+            var postId3 = Guid.NewGuid();
+            var postId4 = Guid.NewGuid();
+            var postId5 = Guid.NewGuid();
+            var postId6 = Guid.NewGuid();
+            var postId7 = Guid.NewGuid();
+            var postId8 = Guid.NewGuid();
 
             await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId,id));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
-            await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId2));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId3));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId4));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId5));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId6));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId7));
+            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId8));
             await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
 
             await myBlogDbContext.SaveChangesAsync();
@@ -148,7 +150,7 @@ namespace MbaBlog.Mvc.Helpers
             };
         }
 
-        private static Post MockPostComentario(Guid autorId, Guid id)
+        private static Post MockPostComentario(Guid autorId, Guid postId)
         {
             Random random = new();
             string sufixo = random.Next(1, 50).ToString();
@@ -156,7 +158,7 @@ namespace MbaBlog.Mvc.Helpers
             
             return new Post
             {
-                Id = id,
+                Id = postId,
                 AutorId = autorId,
                 Titulo = titulo,
                 Texto = "Lorem ipsum dolor sit amet consectetur, adipiscing elit dapibus nunc eleifend euismod, " +
@@ -172,7 +174,7 @@ namespace MbaBlog.Mvc.Helpers
                 "et purus non ultrices dignissim eleifend euismod aenean vehic",
                 CriadoEm = DateTime.Now,
                 ModificadoEm = DateTime.Now,
-                Comentarios = MockComentario(autorId,id),
+                Comentarios = MockComentario(autorId, postId),
             };
         }
 
@@ -184,7 +186,7 @@ namespace MbaBlog.Mvc.Helpers
             {
                 Id = Guid.NewGuid(),
                 AutorId = autorId,
-                Comentario = "pharetra inceptos natoque nascetur. Sem maecenas vehicula justo mollis tellus mattis ac parturient, " +
+                Comentario = "Novissimo comentario pharetra inceptos natoque nascetur. Sem mollis tellus mattis ac parturient, " +
                 "mauris faucibus fames commodo dictumst eget imperdiet enim blandit, lectus fusce sociosqu morbi " +
                 "interdum egestas dui. Nascetur bibendum metus congue mattis euismod ligula sollicitudin id aptent ",
                 PostId = postId
@@ -194,7 +196,7 @@ namespace MbaBlog.Mvc.Helpers
             {
                 Id = Guid.NewGuid(),
                 AutorId = autorId,
-                Comentario = "pharetra inceptos natoque nascetur. Sem maecenas vehicula justo mollis tellus mattis ac parturient, " +
+                Comentario = "Novo comentario pharetra inceptos natoque nascetur. Sem maecenas vehicula justo, " +
                 "mauris faucibus fames commodo dictumst eget imperdiet enim blandit, lectus fusce sociosqu morbi " +
                 "interdum egestas dui. Nascetur bibendum metus congue mattis euismod ligula sollicitudin id aptent ",
                 PostId = postId
