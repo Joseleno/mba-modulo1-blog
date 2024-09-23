@@ -14,10 +14,9 @@ using System.Threading.Tasks;
 
 namespace MbaBlog.Infrastructure.Repositorys.Posts;
 
-public class RepositoryPost(MbaBlogDbContext myBlogContext, ApplicationDbContext appctx) : IRepositoryPost
+public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
 {
     private readonly MbaBlogDbContext _myBlogContext = myBlogContext;
-    private readonly ApplicationDbContext _appctx = appctx;
 
     public async Task<Post> CreatePost(Post post)
     {
@@ -49,7 +48,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext, ApplicationDbContext
 
     public async Task<Post?> GetPostById(Guid postId)
     {
-        return await _myBlogContext.Posts.SingleOrDefaultAsync(p => p.Id == postId);
+        return await _myBlogContext.Posts.Include(x => x.Comentarios).SingleOrDefaultAsync(p => p.Id == postId);
     }
 
     public async Task<IEnumerable<Post>> GetPosts()
