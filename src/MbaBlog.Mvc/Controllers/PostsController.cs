@@ -14,19 +14,20 @@ using MbaBlog.Utils.Users;
 
 namespace MbaBlog.Mvc.Controllers;
 
+[Authorize]
 public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
     private readonly IUserUtil _iUserUtil = IUserUtil;
-    
 
-    // GET: Posts
+
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         return View(await _repositoryPost.GetPosts());
     }
 
-    // GET: Posts/Details/5
+    [Route("{id:Guid}/detalhes")]
     public async Task<IActionResult> Details(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
@@ -38,17 +39,14 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
         return View(post);
     }
 
-    // GET: Posts/Create
-    [Authorize]
+    [Route("novo")]
     public IActionResult Create()
     {
         return View();
     }
 
-    // POST: Posts/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [HttpPost]
+    
+    [HttpPost("novo")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Titulo,Texto")] Post post)
     {
@@ -62,8 +60,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
         return View(post);
     }
 
-    // GET: Posts/Edit/5
-    [Authorize]
+    [Route("editar/{id:Guid}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
@@ -79,11 +76,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
         return View(post);
     }
 
-    // POST: Posts/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    [Authorize]
-    [HttpPost]
+    [HttpPost("editar/{id:Guid}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Guid id, [Bind("AutorId,Titulo,Texto,Id")] Post post)
     {
@@ -115,8 +108,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
 
     }
 
-    //GET: Posts/Delete/5
-    [Authorize]
+    [Route("excluir/{id:Guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
@@ -127,9 +119,8 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
         return View(post);
     }
 
-    // POST: Posts/Delete/5
-    [Authorize]
-    [HttpPost, ActionName("Delete")]
+    [HttpPost("excluir/{id:Guid}")]
+    [ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {

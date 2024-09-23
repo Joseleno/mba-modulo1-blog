@@ -59,12 +59,28 @@ Passos para Execução
 
 Clone o Repositório:
 
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+git clone https://github.com/Joseleno/mba-modulo1-blog
 cd nome-do-repositorio
 Configuração do Banco de Dados:
 
 No arquivo appsettings.json, configure a string de conexão do SQL Server.
 Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
+
+<< ATENÇAO: INSTRUÇOES PARA ULIZAR O MOCK DE USUARIOS, POSTS E COMENTARIOS >>
+
+  1. CONFIGURAR CONNECTION STRING
+  2. RODAR O PROJETO MbaBlog.Mvc
+  3. PARA OBTER USUARIO COM PERFIL <<ADMIN>> ACESSE O BANCO DE DADOS CRIADO E EXECUTE O COMANDO:
+  
+    "select u.UserName from AspNetUsers as u
+    join AspNetUserRoles as r on u.Id = r.UserId"
+  4. PARA OBTER OUTROS USUARIOS EXECUTE O COMANDO:
+  
+    "select u.UserName from AspNetUsers as u"
+  5. TODOS OS USUARIOS GERADOS TEM A MESMA SENHA: Teste@1234
+
+<< FIM DAS INSTRUÇOES PARA UTILIZAR O MOCK>>
+    
 Executar a Aplicação MVC:
 
 cd src/Blog.Mvc/
