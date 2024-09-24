@@ -5,7 +5,6 @@
 }
 
 <div>
-    <h4>Post</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -47,5 +46,6 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id"><input type="button" value="Editar Post" class="btn btn-info" size="5" /></a> |
-    <a asp-action="Index"><input type="button" value="Voltar ao Inicio" class="btn btn-light" size="5" /></a>
+    <a asp-action="Delete" asp-route-id="@Model?.Id"><input type="button" value="Excluir" class="btn btn-danger" size="5" /></a> | 
+    <a asp-action="Index"><input type="button" value="Voltar ao Inicio" class="btn btn-secondary" size="5" /></a>
 </div>
