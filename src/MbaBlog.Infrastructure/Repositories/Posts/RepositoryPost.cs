@@ -43,7 +43,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
 
     public async Task<IEnumerable<Post>> GetPosts()
     {
-        return await _myBlogContext.Posts.ToListAsync();
+        return await _myBlogContext.Posts.OrderByDescending(p => p.CriadoEm).ToListAsync();
     }
 
     public async Task<IEnumerable<Post>> GetPostsByIdAutor(Guid userId)

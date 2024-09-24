@@ -42,7 +42,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     
     [HttpPost("novo")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Titulo,Texto")] Post post)
+    public async Task<IActionResult> Create([Bind("Titulo,Texto,CriadoEm")] Post post)
     {
         if (ModelState.IsValid)
         {
@@ -73,7 +73,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
 
     [HttpPost("editar/{id:Guid}")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid id, [Bind("AutorId,Titulo,Texto,Id")] Post post)
+    public async Task<IActionResult> Edit(Guid id, [Bind("AutorId,Titulo,Texto,Id,CriadoEm,ModificadoEm")] Post post)
     {
         if (id != post.Id)
         {
