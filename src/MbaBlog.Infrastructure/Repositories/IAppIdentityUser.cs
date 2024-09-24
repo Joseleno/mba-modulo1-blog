@@ -1,4 +1,4 @@
-﻿namespace MbaBlog.Infrastructure;
+﻿namespace MbaBlog.Infrastructure.Repositories;
 
 public interface IAppIdentityUser
 {
@@ -6,5 +6,5 @@ public interface IAppIdentityUser
     Guid GetUserId();
     bool IsAuthenticated();
     bool IsInRole(string role);
- 
+
 }

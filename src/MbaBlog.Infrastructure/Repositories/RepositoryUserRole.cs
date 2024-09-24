@@ -1,11 +1,7 @@
-﻿using MbaBlog.Mvc.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MbaBlog.Infrastructure.Repositorys.UserRole;
+using MbaBlog.Mvc.Data;
 
-namespace MbaBlog.Infrastructure.Repositorys.UserRole;
+namespace MbaBlog.Infrastructure.Repositories;
 
 public class RepositoryUserRole(ApplicationDbContext appctx) : IRepositoryUserRole
 {
@@ -17,11 +13,11 @@ public class RepositoryUserRole(ApplicationDbContext appctx) : IRepositoryUserRo
         {
             return null;
         }
-        var roles = (from r in _appctx.Roles
-                     join u in _appctx.UserRoles on r.Id equals u.RoleId
-                     select r.Name);
+        var roles = from r in _appctx.Roles
+                    join u in _appctx.UserRoles on r.Id equals u.RoleId
+                    select r.Name;
         var result = _appctx.Roles.SingleOrDefault(r => r.Id == role.RoleId);
 
-        return result != null ? result.Name : null;
+        return result?.Name;
     }
 }

@@ -1,10 +1,8 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 
-namespace MbaBlog.Infrastructure;
+namespace MbaBlog.Infrastructure.Repositories;
 
 public class AppIdentityUser(IHttpContextAccessor accessor) : IAppIdentityUser
 {

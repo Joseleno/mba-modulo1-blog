@@ -1,6 +1,5 @@
 ﻿using MbaBlog.Infrastructure.Data;
 using MbaBlog.Mvc.Data;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

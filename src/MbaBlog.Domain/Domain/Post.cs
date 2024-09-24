@@ -1,6 +1,4 @@
 ﻿using MbaBlog.Domain.Domain.Commun;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace MbaBlog.Domain.Domain
 {

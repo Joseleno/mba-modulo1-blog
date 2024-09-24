@@ -40,9 +40,17 @@ namespace MbaBlog.Mvc
 
             app.UseAuthorization();
 
+            
+
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Posts}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+            //app.MapControllerRoute(
+            //    name: "comentarios",
+            //    pattern: "{controller=Comentarios}/{action=Index}/{id?}");
+
             app.MapRazorPages();
 
             app.UseDbMigrationHelper();
