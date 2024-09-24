@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Domain", "src\MbaBl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Infrastructure", "src\MbaBlog.Infrastructure\MbaBlog.Infrastructure.csproj", "{FE574258-257F-4C11-86BB-EAFB83E42FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MbaBlog.Utils", "src\MbaBlog.Utils\MbaBlog.Utils.csproj", "{3D3D1747-6B87-429B-B58F-F4CA46A25773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Utils", "src\MbaBlog.Utils\MbaBlog.Utils.csproj", "{3D3D1747-6B87-429B-B58F-F4CA46A25773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
