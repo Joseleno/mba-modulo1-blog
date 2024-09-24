@@ -1,7 +1,6 @@
 ﻿using MbaBlog.Domain.Domain.Commun;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Reflection.Metadata.Ecma335;
 
 namespace MbaBlog.Domain.Domain
 {

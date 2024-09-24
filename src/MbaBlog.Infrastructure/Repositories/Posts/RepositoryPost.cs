@@ -1,18 +1,8 @@
-﻿using Azure;
-using Humanizer;
-using MbaBlog.Domain.Domain;
+﻿using MbaBlog.Domain.Domain;
 using MbaBlog.Infrastructure.Data;
-using MbaBlog.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MbaBlog.Infrastructure.Repositorys.Posts;
+namespace MbaBlog.Infrastructure.Repositories.Posts;
 
 public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
 {
@@ -31,11 +21,11 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         var post = await GetPostById(id);
         if (post != null)
         {
-            _myBlogContext.Remove(post);
+            _myBlogContext.Posts.Remove(post);
         }
 
         await _myBlogContext.SaveChangesAsync();
-        
+
     }
 
     public async Task<Post> EditPost(Post post)
@@ -58,7 +48,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
 
     public async Task<IEnumerable<Post>> GetPostsByIdAutor(Guid userId)
     {
-        var result = await _myBlogContext.Posts.Where( p => p.AutorId.Equals(userId)).ToListAsync();
+        var result = await _myBlogContext.Posts.Where(p => p.AutorId.Equals(userId)).ToListAsync();
 
         return result;
     }

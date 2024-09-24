@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MbaBlog.Domain.Domain;
-using MbaBlog.Infrastructure.Data;
-using MbaBlog.Infrastructure.Repositorys.Posts;
-using MbaBlog.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Utils.Users;
+using MbaBlog.Infrastructure.Repositories.Posts;
 
 namespace MbaBlog.Mvc.Controllers;
 
 [Authorize]
-public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil) : Controller
+[Route("posts")]
+public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
-    private readonly IUserUtil _iUserUtil = IUserUtil;
+    private readonly IUserUtil _iUserUtil = iUserUtil;
 
 
     [AllowAnonymous]
@@ -27,7 +21,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
         return View(await _repositoryPost.GetPosts());
     }
 
-    [Route("{id:Guid}/detalhes")]
+    [Route("/detalhes/{id:Guid}")]
     public async Task<IActionResult> Details(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
@@ -63,10 +57,11 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
     [Route("editar/{id:Guid}")]
     public async Task<IActionResult> Edit(Guid id)
     {
+
         var post = await _repositoryPost.GetPostById(id);
         if (!_iUserUtil.HasAthorization(post!.AutorId))
         {
-            return Content("Ediçao nao autorizada!");
+            return RedirectToAction("Index", "Validations");
         }
 
         if (post == null)
@@ -80,9 +75,14 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Guid id, [Bind("AutorId,Titulo,Texto,Id")] Post post)
     {
+        if (id != post.Id)
+        {
+            return NotFound();
+        }
+
         if (!_iUserUtil.HasAthorization(post!.AutorId))
         {
-            return Content("Ediçao nao autorizada!");
+            return RedirectToAction("Index", "Validations");
         }
 
         if (id != post.Id)
@@ -112,6 +112,11 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil IUserUtil
     public async Task<IActionResult> Delete(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
+        if (!_iUserUtil.HasAthorization(post!.AutorId))
+        {
+            return RedirectToAction("Index", "Validations");
+        }
+
         if (post == null)
         {
             return NotFound();

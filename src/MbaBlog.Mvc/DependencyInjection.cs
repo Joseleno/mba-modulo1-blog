@@ -1,7 +1,6 @@
-﻿
-using MbaBlog.Infrastructure;
-using MbaBlog.Infrastructure.Repositorys.Comentarios;
-using MbaBlog.Infrastructure.Repositorys.Posts;
+﻿using MbaBlog.Infrastructure.Repositories;
+using MbaBlog.Infrastructure.Repositories.Comentarios;
+using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Infrastructure.Repositorys.UserRole;
 using MbaBlog.Utils.Users;
 
