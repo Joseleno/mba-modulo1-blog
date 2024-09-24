@@ -22,6 +22,8 @@
             </div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="AutorId" />
+            <input type="hidden" asp-for="ModificadoEm" value=@DateTime.Now class="form-control">
+            <input type="hidden" asp-for="CriadoEm" class="form-control">
             <div class="form-group">
                 <p class="pt-3">
                     <input type="submit" value="Salvar" class="btn btn-primary" />
