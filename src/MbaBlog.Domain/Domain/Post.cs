@@ -18,12 +18,12 @@ namespace MbaBlog.Domain.Domain
 
         [DisplayName("Titulo")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(200, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 10)]
+        [StringLength(80, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 10)]
         public required string Titulo { get; set; }
 
         [DisplayName("Texto")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(1000, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 20)]
+        [StringLength(1500, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 100)]
         public required string Texto { get; set; }
 
         public IEnumerable<ComentarioPost>? Comentarios { get; set; }

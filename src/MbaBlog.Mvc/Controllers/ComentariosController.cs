@@ -39,7 +39,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
         return View(comentarioPost);
     }
 
-    [Route("editar/{id:Guid}")]
+    [Route("{id:Guid}")]
     public async Task<IActionResult> Edit(Guid id)
     {
         var comentarioPost = await _repositoryComentario.GetComentarioById(id);
@@ -52,7 +52,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
         return View(comentarioPost);
     }
 
-    [HttpPost("editar/{id:Guid}")]
+    [HttpPost("{id:Guid}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Guid id, [Bind("Comentario,Id, AutorId, PostId")] ComentarioPost comentarioPost)
     {
@@ -76,7 +76,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
             {
                 throw;
             }
-            return RedirectToAction("Index", "Posts");
+            return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");
         }
 
         return View(comentarioPost);
