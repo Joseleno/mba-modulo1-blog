@@ -14,6 +14,6 @@ public interface IRepositoryPost
 
     Task<Post?> GetPostById(Guid postId);
 
-    Task Delete(Guid id);
+    Task Delete(Post post);
 
 }

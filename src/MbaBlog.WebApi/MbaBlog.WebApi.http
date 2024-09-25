@@ -1,0 +1,6 @@
+@MbaBlog.WebApi_HostAddress = http://localhost:5078
+
+GET {{MbaBlog.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
