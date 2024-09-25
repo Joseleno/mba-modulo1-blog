@@ -16,16 +16,10 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         return post;
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(Post post)
     {
-        var post = await GetPostById(id);
-        if (post != null)
-        {
-            _myBlogContext.Posts.Remove(post);
-        }
-
+        _myBlogContext.Posts.Remove(post);
         await _myBlogContext.SaveChangesAsync();
-
     }
 
     public async Task<Post> EditPost(Post post)

@@ -8,7 +8,7 @@ using MbaBlog.Infrastructure.Repositories.Posts;
 namespace MbaBlog.Mvc.Controllers;
 
 [Authorize]
-[Route("posts")]
+[Route("[controller]")]
 public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
@@ -21,7 +21,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
         return View(await _repositoryPost.GetPosts());
     }
 
-    [Route("/detalhes/{id:Guid}")]
+    [Route("{id:Guid}")]
     public async Task<IActionResult> Details(Guid id)
     {
         var post = await _repositoryPost.GetPostById(id);
@@ -129,7 +129,11 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        await _repositoryPost.Delete(id);
+        var post = await _repositoryPost.GetPostById(id);
+        if (post != null)
+        {
+            await _repositoryPost.Delete(post);
+        }
         return RedirectToAction(nameof(Index));
     }
     

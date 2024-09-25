@@ -1,4 +1,4 @@
-﻿namespace MbaBlog.Infrastructure.Repositories;
+﻿namespace MbaBlog.Infrastructure.Repositories.Users;
 
 public interface IAppIdentityUser
 {
