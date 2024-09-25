@@ -26,13 +26,14 @@ namespace MbaBlog.Mvc.Helpers
             if (env.IsDevelopment())
             {
                 await applicationDbContext.Database.MigrateAsync();
-                
+
                 await myBlogDbContext.Database.MigrateAsync();
 
                 await EnsureSeedPosts(applicationDbContext, myBlogDbContext);
             }
 
         }
+
 
         public static async Task EnsureSeedPosts(ApplicationDbContext applicationDbContext, MbaBlogDbContext myBlogDbContext)
         {
@@ -43,9 +44,9 @@ namespace MbaBlog.Mvc.Helpers
             var autorId = Guid.NewGuid();
             var autorId01 = Guid.NewGuid();
             var autorId002 = Guid.NewGuid();
-            
+
             var roleId = Guid.NewGuid();
-            
+
             await applicationDbContext.Users.AddAsync(MockUser(autorId));
             await applicationDbContext.Users.AddAsync(MockUser(autorId01));
             await applicationDbContext.Users.AddAsync(MockUser(autorId002));
@@ -56,7 +57,7 @@ namespace MbaBlog.Mvc.Helpers
 
             await applicationDbContext.Set<IdentityUserRole<string>>()
                 .AddAsync(new IdentityUserRole<string> { RoleId = roleId.ToString(), UserId = autorId002.ToString() });
-            
+
             await applicationDbContext.SaveChangesAsync();
 
             if (myBlogDbContext.Posts.Any())
@@ -74,14 +75,14 @@ namespace MbaBlog.Mvc.Helpers
             var postId8 = Guid.NewGuid();
 
             await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId2));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId3));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId4));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId5));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId6));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId7));
-            await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId8));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId2));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId3));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId4));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId5));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId6));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId7));
+            await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId8));
             await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
 
             await myBlogDbContext.SaveChangesAsync();
@@ -90,8 +91,8 @@ namespace MbaBlog.Mvc.Helpers
         private static IdentityUser MockUser(Guid autorId)
         {
             Random random = new();
-            string sufixo = random.Next(1, 10).ToString();
-            var userName = sufixo + ("user@user.com");
+            string sufixo = random.Next().ToString();
+            var userName = "user"+sufixo+"@user.com";
             return new IdentityUser
             {
                 Id = autorId.ToString(),
@@ -117,15 +118,15 @@ namespace MbaBlog.Mvc.Helpers
                 Id = roleId.ToString(),
                 Name = "admin",
                 NormalizedName = "ADMIN",
-                 ConcurrencyStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
             };
         }
 
         private static Post MockPost(Guid autorId)
         {
             Random random = new();
-            string sufixo = random.Next(1, 50).ToString();
-            var titulo = "Post - " + sufixo;
+            string sufixo = random.Next().ToString();
+            var titulo = "Novo Post - " + sufixo;
 
             return new Post
             {
@@ -148,12 +149,12 @@ namespace MbaBlog.Mvc.Helpers
             };
         }
 
-        private static Post MockPostComentario(Guid autorId, Guid postId)
+        private static Post MockPostComComentario(Guid autorId, Guid postId)
         {
             Random random = new();
-            string sufixo = random.Next(1, 50).ToString();
-            var titulo = "Post - " + sufixo;
-            
+            string sufixo = random.Next().ToString();
+            var titulo = "Novo Post - " + sufixo;
+
             return new Post
             {
                 Id = postId,

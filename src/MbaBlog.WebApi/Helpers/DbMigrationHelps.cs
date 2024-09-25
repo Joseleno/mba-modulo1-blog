@@ -74,14 +74,14 @@ public class DbMigrationHelps
         var postId8 = Guid.NewGuid();
 
         await myBlogDbContext.Posts.AddAsync(MockPost(autorId));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId2));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId3));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId, postId4));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId5));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId6));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId7));
-        await myBlogDbContext.Posts.AddAsync(MockPostComentario(autorId01, postId8));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId2));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId3));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId, postId4));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId5));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId6));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId7));
+        await myBlogDbContext.Posts.AddAsync(MockPostComComentario(autorId01, postId8));
         await myBlogDbContext.Posts.AddAsync(MockPost(autorId01));
 
         await myBlogDbContext.SaveChangesAsync();
@@ -90,8 +90,8 @@ public class DbMigrationHelps
     private static IdentityUser MockUser(Guid autorId)
     {
         Random random = new();
-        string sufixo = random.Next(1, 10).ToString();
-        var userName = sufixo + "user@user.com";
+        string sufixo = random.Next().ToString();
+        var userName = "user" + sufixo + "@user.com";
         return new IdentityUser
         {
             Id = autorId.ToString(),
@@ -124,8 +124,8 @@ public class DbMigrationHelps
     private static Post MockPost(Guid autorId)
     {
         Random random = new();
-        string sufixo = random.Next(1, 50).ToString();
-        var titulo = "Post - " + sufixo;
+        string sufixo = random.Next().ToString();
+        var titulo = "Novo Post - " + sufixo;
 
         return new Post
         {
@@ -148,11 +148,11 @@ public class DbMigrationHelps
         };
     }
 
-    private static Post MockPostComentario(Guid autorId, Guid postId)
+    private static Post MockPostComComentario(Guid autorId, Guid postId)
     {
         Random random = new();
-        string sufixo = random.Next(1, 50).ToString();
-        var titulo = "Post - " + sufixo;
+        string sufixo = random.Next().ToString();
+        var titulo = "Novo Post - " + sufixo;
 
         return new Post
         {
