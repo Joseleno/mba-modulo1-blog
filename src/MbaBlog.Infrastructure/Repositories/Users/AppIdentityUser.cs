@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 
-namespace MbaBlog.Infrastructure.Repositories;
+namespace MbaBlog.Infrastructure.Repositories.Users;
 
 public class AppIdentityUser(IHttpContextAccessor accessor) : IAppIdentityUser
 {

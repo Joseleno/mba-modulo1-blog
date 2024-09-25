@@ -1,4 +1,4 @@
-﻿namespace MbaBlog.Infrastructure.Repositorys.UserRole;
+﻿namespace MbaBlog.Infrastructure.Repositories.Users;
 
 public interface IRepositoryUserRole
 {

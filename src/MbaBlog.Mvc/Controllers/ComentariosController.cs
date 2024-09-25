@@ -33,7 +33,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
 
             await _repositoryComentario.Create(comentarioPost);
 
-            return RedirectToAction("detalhes"+'/'+comentarioPost.PostId.ToString());
+            return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");
         }
 
         return View(comentarioPost);

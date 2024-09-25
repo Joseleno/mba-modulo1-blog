@@ -1,11 +1,11 @@
 ﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
-using MbaBlog.Infrastructure.Repositories.Users;
 using MbaBlog.Utils.Users;
+using MbaBlog.Infrastructure.Repositories.Users;
 
-namespace MbaBlog.Mvc;
+namespace MbaBlog.WebApi;
 
-public static class DependencyInjection
+public static class DependencjyInjection
 {
     public static IServiceCollection AdicionarRepositorio(this IServiceCollection services)
     {

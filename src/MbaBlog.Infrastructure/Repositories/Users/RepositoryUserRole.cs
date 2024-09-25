@@ -1,7 +1,6 @@
-﻿using MbaBlog.Infrastructure.Repositorys.UserRole;
-using MbaBlog.Mvc.Data;
+﻿using MbaBlog.Mvc.Data;
 
-namespace MbaBlog.Infrastructure.Repositories;
+namespace MbaBlog.Infrastructure.Repositories.Users;
 
 public class RepositoryUserRole(ApplicationDbContext appctx) : IRepositoryUserRole
 {
