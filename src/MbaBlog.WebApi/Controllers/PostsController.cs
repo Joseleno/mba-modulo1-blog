@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using MbaBlog.Domain.Domain;
 using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Util.Users;
+using MbaBlog.WebApi.Data.Dtos;
+using MbaBlog.WebApi.Data.Mappers;
 
 namespace MbaBlog.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil) : Controller
+public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperPostDto mapperDto) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
     private readonly IUserUtil _iUserUtil = iUserUtil;
+    private readonly IMapperPostDto _mapperDto = mapperDto;
 
     [HttpGet()]
     [Produces("application/json")]
@@ -28,9 +31,9 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     }
     
     [HttpPost()]
-    public async Task<IActionResult> Create([FromBody] Post post)
+    public async Task<IActionResult> Create(PostDto postDto)
     {
-        if (post.AutorId == Guid.Empty || !_iUserUtil.IsUser(post.AutorId))
+        if (postDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(postDto.AutorId))
         {
 
             return ValidationProblem("Usuario nao cadastrado");
@@ -41,28 +44,11 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
             
             return BadRequest(ModelState);
         }
+        
+        var post = await _repositoryPost.CreatePost(_mapperDto.MapPost(postDto));
 
-        post.CriadoEm = DateTime.Now;
-        await _repositoryPost.CreatePost(post);
-
-        return Ok(new {post});
+        return Ok(new { post.Id});
     }
-
-    //// GET: Posts/Edit/5
-    //public async Task<IActionResult> Edit(Guid? id)
-    //{
-    //    if (id == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    var post = await _context.Posts.FindAsync(id);
-    //    if (post == null)
-    //    {
-    //        return NotFound();
-    //    }
-    //    return View(post);
-    //}
 
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
