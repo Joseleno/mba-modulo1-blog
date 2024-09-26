@@ -23,7 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MbaBlog.Domain\MbaBlog.Domain.csproj" />
     <ProjectReference Include="..\MbaBlog.Infrastructure\MbaBlog.Infrastructure.csproj" />
-    <ProjectReference Include="..\MbaBlog.Utils\MbaBlog.Utils.csproj" />
+    <ProjectReference Include="..\MbaBlog.Util\MbaBlog.Util.csproj" />
   </ItemGroup>
 
 </Project>

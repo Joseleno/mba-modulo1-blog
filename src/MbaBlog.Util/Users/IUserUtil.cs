@@ -1,6 +1,6 @@
-﻿using MbaBlog.Utils.Users.Dtos;
+﻿using MbaBlog.Util.Users.Dtos;
 
-namespace MbaBlog.Utils.Users;
+namespace MbaBlog.Util.Users;
 
 public interface IUserUtil
 {

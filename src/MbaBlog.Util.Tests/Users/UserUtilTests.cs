@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
 using MbaBlog.Infrastructure.Repositories.Users;
-using MbaBlog.Utils.Exceptions;
-using MbaBlog.Utils.Users;
-using MbaBlog.Utils.Users.Dtos;
+using MbaBlog.Util.Exceptions;
+using MbaBlog.Util.Users;
+using MbaBlog.Util.Users.Dtos;
 using Moq;
 
-namespace MbaBlog.Utils.Tests.Users;
+namespace MbaBlog.Util.Tests.Users;
 
 public class UserUtilTests
 {
@@ -41,7 +41,7 @@ public class UserUtilTests
     }
 
     [Fact]
-    public void QuandoUsuaarioLogado_DeveRetornarNotFoundException()
+    public void QuandoUsuaarioNaoLogado_DeveRetornarNotFoundException()
     {
         //Given
 
@@ -60,10 +60,6 @@ public class UserUtilTests
         var id = Guid.NewGuid();
 
 
-        //var usertId = _appIdentityUser.GetUserId();
-        //var result = usertId == id || IsAdmin(usertId);
-        //return result;
-
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
         _repositoryUserRole.Setup(x => x.GetRole(id)).Returns("admin");
 
@@ -77,22 +73,67 @@ public class UserUtilTests
     }
 
     [Fact]
-    public void QuandoUsuaarioNaoAutorizado_DeveRetornarFalse()
+    public void QuandoUsuarioNaoAutorizado_DeveRetornarFalse()
     {
         //Given
         var id = Guid.NewGuid();
-        var nome = "nome@nome";
 
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
-        _appIdentityUser.Setup(x => x.GetUsername()).Returns(nome);
-
-        var uesExpected = new UserDto { UserId = id, UserEmail = nome };
+        _repositoryUserRole.Setup(x => x.GetRole(id)).Returns(string.Empty);
 
         //When
-        var result = _service.GetUser();
+        var result = _service.HasAthorization(Guid.NewGuid());
 
         //Then
-        result.Should().BeEquivalentTo(uesExpected);
+        result.Should().BeFalse();
+
+    }
+
+    [Fact]
+    public void QuandoUsuarioAutorizadoNaoAdmin_DeveRetornarTrue()
+    {
+        //Given
+        var id = Guid.NewGuid();
+
+        _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
+        _repositoryUserRole.Setup(x => x.GetRole(id)).Returns(string.Empty);
+
+
+        //When
+        var result = _service.HasAthorization(id);
+
+        //Then
+        result.Should().BeTrue();
+
+    }
+
+    [Fact]
+    public void QuandoUsuarioEncontrado_DeveRetornarTrue()
+    {
+        //Given
+        var id = Guid.NewGuid();
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new Infrastructure.Dtos.UserDto());
+
+        //When
+        var result = _service.IsUser(id);
+
+        //Then
+        result.Should().BeTrue();
+
+    }
+
+    [Fact]
+    public void QuandoUsuarioNaoEncontrado_DeveRetornarFalse()
+    {
+        //Given
+        var id = Guid.NewGuid();
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new Infrastructure.Dtos.UserDto());
+
+        //When
+        var result = _service.IsUser(Guid.NewGuid());
+
+        //Then
+        result.Should().BeFalse();
 
     }
 }

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MbaBlog.Utils\MbaBlog.Utils.csproj" />
+    <ProjectReference Include="..\MbaBlog.Util\MbaBlog.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>

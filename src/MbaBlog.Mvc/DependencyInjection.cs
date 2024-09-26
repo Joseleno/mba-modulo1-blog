@@ -1,7 +1,7 @@
 ﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Infrastructure.Repositories.Users;
-using MbaBlog.Utils.Users;
+using MbaBlog.Util.Users;
 
 namespace MbaBlog.Mvc;
 

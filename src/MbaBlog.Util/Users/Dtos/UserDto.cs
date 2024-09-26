@@ -1,4 +1,4 @@
-﻿namespace MbaBlog.Utils.Users.Dtos
+﻿namespace MbaBlog.Util.Users.Dtos
 {
     public class UserDto
     {

@@ -1,8 +1,8 @@
 ﻿using MbaBlog.Infrastructure.Repositories.Users;
-using MbaBlog.Utils.Exceptions;
-using MbaBlog.Utils.Users.Dtos;
+using MbaBlog.Util.Exceptions;
+using MbaBlog.Util.Users.Dtos;
 
-namespace MbaBlog.Utils.Users;
+namespace MbaBlog.Util.Users;
 
 public class UserUtil(IAppIdentityUser appIdentityUser, IRepositoryUserRole iUserRole, IRepositoryUser repositoryUser) : IUserUtil
 {

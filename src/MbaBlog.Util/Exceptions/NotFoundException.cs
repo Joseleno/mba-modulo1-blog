@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MbaBlog.Utils.Exceptions;
+namespace MbaBlog.Util.Exceptions;
 
 public class NotFoundException(string message) : Exception(message)
 {

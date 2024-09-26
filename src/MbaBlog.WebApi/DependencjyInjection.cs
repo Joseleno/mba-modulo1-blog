@@ -1,6 +1,6 @@
 ﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
-using MbaBlog.Utils.Users;
+using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Users;
 
 namespace MbaBlog.WebApi;
