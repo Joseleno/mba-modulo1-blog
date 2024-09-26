@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MbaBlog.Domain.Domain;
 using MbaBlog.Infrastructure.Repositories.Posts;
-using MbaBlog.Utils.Users;
+using MbaBlog.Util.Users;
 
 namespace MbaBlog.WebApi.Controllers;
 

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
-using MbaBlog.Utils.Users;
+using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
 
