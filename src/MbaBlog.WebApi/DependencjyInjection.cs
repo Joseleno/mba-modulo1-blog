@@ -2,6 +2,7 @@
 using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Users;
+using MbaBlog.WebApi.Data.Mappers;
 
 namespace MbaBlog.WebApi;
 
@@ -14,6 +15,8 @@ public static class DependencjyInjection
         services.AddScoped<IRepositoryComentario, RepositoryComentario>();
         services.AddScoped<IRepositoryUserRole, RepositoryUserRole>();
         services.AddScoped<IRepositoryUser, RepositoryUser>();
+        services.AddScoped<IMapperPostDto, MapperPostDto>();
+        services.AddScoped<IMapperComentario, MapperComentarioDto>();
 
         return services;
     }
