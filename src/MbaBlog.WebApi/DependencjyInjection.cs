@@ -16,6 +16,7 @@ public static class DependencjyInjection
         services.AddScoped<IRepositoryUserRole, RepositoryUserRole>();
         services.AddScoped<IRepositoryUser, RepositoryUser>();
         services.AddScoped<IMapperPostDto, MapperPostDto>();
+        services.AddScoped<IMapperComentario, MapperComentarioDto>();
 
         return services;
     }

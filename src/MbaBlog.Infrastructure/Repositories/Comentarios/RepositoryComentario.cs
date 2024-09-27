@@ -28,17 +28,19 @@ namespace MbaBlog.Infrastructure.Repositories.Comentarios
 
         }
 
-        public async Task<ComentarioPost> Edit(ComentarioPost ComentarioPost)
+        public async Task<ComentarioPost> Edit(ComentarioPost comentarioPost)
         {
 
-            _myBlogContext.Comentarios.Update(ComentarioPost);
+            _myBlogContext.Entry(comentarioPost).State = EntityState.Detached;
+            _myBlogContext.Comentarios.Update(comentarioPost);
             await _myBlogContext.SaveChangesAsync();
 
-            return ComentarioPost;
+            return comentarioPost;
         }
 
         public async Task<ComentarioPost?> GetComentarioById(Guid id)
         {
+
             return await _myBlogContext.Comentarios.SingleOrDefaultAsync(p => p.Id == id);
         }
 

@@ -9,125 +9,113 @@ using MbaBlog.Domain.Domain;
 using MbaBlog.Infrastructure.Data;
 using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Util.Users;
+using MbaBlog.WebApi.Data.Dtos;
+using MbaBlog.WebApi.Data.Mappers;
+using MbaBlog.Infrastructure.Repositories.Posts;
 
 namespace MbaBlog.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ComentariosController(IRepositoryComentario repositoryComentario, IUserUtil iUserUtil) : Controller
+public class ComentariosController(IRepositoryComentario repositoryComentario, IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario) : Controller
 {
     private readonly IRepositoryComentario _repositoryComentario = repositoryComentario;
+    private readonly IRepositoryPost _repositoryPost = repositoryPost;
     private readonly IUserUtil _iUserUtil = iUserUtil;
+    private readonly IMapperComentario _mapperComentario = mapperComentario;
 
-
-  
-
-    
-    [HttpPost]
-    public async Task<IActionResult> Create(ComentarioPost comentarioPost)
+    [HttpPost()]
+    public async Task<IActionResult> Create(ComentarioDto comentarioDto)
     {
-        if (ModelState.IsValid)
+        if (comentarioDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(comentarioDto.AutorId))
         {
-            var autorId = _iUserUtil.GetUser().UserId;
 
-            comentarioPost.AutorId = autorId;
-
-            await _repositoryComentario.Create(comentarioPost);
-
-            return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");
+            return ValidationProblem("Usuario nao cadastrado");
         }
-        return View(comentarioPost);
+
+        if (comentarioDto.PostId == Guid.Empty)
+        {
+
+            return ValidationProblem("PostId nao encontrado");
+        }
+
+        var post = await _repositoryPost.GetPostById(comentarioDto.PostId);
+
+        if (post is null)
+        {
+
+            return ValidationProblem("Post nao cadastrado");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        await _repositoryComentario.Create(_mapperComentario.Mapcomentario(comentarioDto));
+        return Ok(new { post.Id });
     }
 
-    //// GET: Comentarios/Edit/5
-    //public async Task<IActionResult> Edit(Guid? id)
-    //{
-    //    if (id == null)
-    //    {
-    //        return NotFound();
-    //    }
+    [HttpPut("{id:Guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> Edit(Guid id, ComentarioDto comentario)
+    {
+        if (!_iUserUtil.IsUser(comentario!.AutorId))
+        {
+            return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
+        }
 
-    //    var comentarioPost = await _context.Comentarios.FindAsync(id);
-    //    if (comentarioPost == null)
-    //    {
-    //        return NotFound();
-    //    }
-    //    ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Texto", comentarioPost.PostId);
-    //    return View(comentarioPost);
-    //}
+        var comentarioBd = await _repositoryComentario.GetComentarioById(id); ;
 
-    //// POST: Comentarios/Edit/5
-    //// To protect from overposting attacks, enable the specific properties you want to bind to.
-    //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> Edit(Guid id, [Bind("Comentario,Id")] ComentarioPost comentarioPost)
-    //{
-    //    if (id != comentarioPost.Id)
-    //    {
-    //        return NotFound();
-    //    }
+        if (comentarioBd!.PostId != comentario.PostId)
+        {
+            return BadRequest();
+        }
 
-    //    if (ModelState.IsValid)
-    //    {
-    //        try
-    //        {
-    //            _context.Update(comentarioPost);
-    //            await _context.SaveChangesAsync();
-    //        }
-    //        catch (DbUpdateConcurrencyException)
-    //        {
-    //            if (!ComentarioPostExists(comentarioPost.Id))
-    //            {
-    //                return NotFound();
-    //            }
-    //            else
-    //            {
-    //                throw;
-    //            }
-    //        }
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Texto", comentarioPost.PostId);
-    //    return View(comentarioPost);
-    //}
+        if (ModelState.IsValid)
+        {
+            try
+            {
 
-    //// GET: Comentarios/Delete/5
-    //public async Task<IActionResult> Delete(Guid? id)
-    //{
-    //    if (id == null)
-    //    {
-    //        return NotFound();
-    //    }
+                await _repositoryComentario.Edit(_mapperComentario.Mapcomentario(comentario));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-    //    var comentarioPost = await _context.Comentarios
-    //        .Include(c => c.Post)
-    //        .FirstOrDefaultAsync(m => m.Id == id);
-    //    if (comentarioPost == null)
-    //    {
-    //        return NotFound();
-    //    }
+        }
 
-    //    return View(comentarioPost);
-    //}
+        return NoContent();
+    }
 
-    //// POST: Comentarios/Delete/5
-    //[HttpPost, ActionName("Delete")]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> DeleteConfirmed(Guid id)
-    //{
-    //    var comentarioPost = await _context.Comentarios.FindAsync(id);
-    //    if (comentarioPost != null)
-    //    {
-    //        _context.Comentarios.Remove(comentarioPost);
-    //    }
+    [HttpDelete("{id:Guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var comentario = await _repositoryComentario.GetComentarioById(id);
+        if (comentario != null)
+        {
+            await _repositoryComentario.Delete(id);
+        }
 
-    //    await _context.SaveChangesAsync();
-    //    return RedirectToAction(nameof(Index));
-    //}
+        return NoContent();
+    }
 
-    //private bool ComentarioPostExists(Guid id)
-    //{
-    //    return _context.Comentarios.Any(e => e.Id == id);
-    //}
+    private bool PostExists(Guid id)
+    {
+        return _repositoryComentario.GetComentarioById(id) != null;
+    }
 }
