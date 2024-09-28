@@ -12,19 +12,42 @@ using MbaBlog.Util.Users;
 using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
 using MbaBlog.Infrastructure.Repositories.Posts;
+using Microsoft.AspNetCore.Http;
 
 namespace MbaBlog.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ComentariosController(IRepositoryComentario repositoryComentario, IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario) : Controller
+public class ComentariosController(IRepositoryComentario repositoryComentario,
+    IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario,
+    ILogger<ComentariosController> logger) : Controller
 {
     private readonly IRepositoryComentario _repositoryComentario = repositoryComentario;
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
     private readonly IUserUtil _iUserUtil = iUserUtil;
     private readonly IMapperComentario _mapperComentario = mapperComentario;
 
+    private readonly ILogger<ComentariosController> _logger = logger;
+
+    [HttpGet("{id:Guid}")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<ComentarioPost?>> Get(Guid id)
+    {
+        var result = await _repositoryComentario.GetById(id);
+        if (result is null)
+        {
+            _logger.LogInformation("Comentario nao encontrado - {Id}", id);
+            return NotFound();
+        }
+        return result;
+    }
+
     [HttpPost()]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<IActionResult> Create(ComentarioDto comentarioDto)
     {
         if (comentarioDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(comentarioDto.AutorId))

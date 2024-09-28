@@ -5,6 +5,7 @@ using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Util.Users;
 using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
+using Microsoft.AspNetCore.Http;
 
 namespace MbaBlog.WebApi.Controllers;
 
@@ -26,7 +27,9 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     }
 
     [HttpGet("{id:Guid}")]
-    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<Post?>> Get(Guid id)
     {
         var result = await _repositoryPost.GetById(id);
@@ -39,6 +42,10 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     }
 
     [HttpPost()]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
     public async Task<IActionResult> Create(PostDto postDto)
     {
         if (postDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(postDto.AutorId))
