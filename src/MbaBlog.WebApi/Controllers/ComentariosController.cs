@@ -39,7 +39,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
             return ValidationProblem("PostId nao encontrado");
         }
 
-        var post = await _repositoryPost.GetPostById(comentarioDto.PostId);
+        var post = await _repositoryPost.GetById(comentarioDto.PostId);
 
         if (post is null)
         {
@@ -68,7 +68,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
             return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
         }
 
-        var comentarioBd = await _repositoryComentario.GetComentarioById(id); ;
+        var comentarioBd = await _repositoryComentario.GetById(id); ;
 
         if (comentarioBd!.PostId != comentario.PostId)
         {
@@ -105,7 +105,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var comentario = await _repositoryComentario.GetComentarioById(id);
+        var comentario = await _repositoryComentario.GetById(id);
         if (comentario != null)
         {
             await _repositoryComentario.Delete(id);
@@ -116,6 +116,6 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
 
     private bool PostExists(Guid id)
     {
-        return _repositoryComentario.GetComentarioById(id) != null;
+        return _repositoryComentario.GetById(id) != null;
     }
 }

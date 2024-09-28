@@ -9,7 +9,7 @@ public interface IRepositoryComentario
     Task<ComentarioPost> Edit(ComentarioPost ComentarioPost);
 
 
-    Task<ComentarioPost?> GetComentarioById(Guid ComentarioPostId);
+    Task<ComentarioPost?> GetById(Guid ComentarioPostId);
 
     Task Delete(Guid id);
 }

@@ -18,7 +18,7 @@ namespace MbaBlog.Infrastructure.Repositories.Comentarios
 
         public async Task Delete(Guid id)
         {
-            var comentario = await GetComentarioById(id);
+            var comentario = await GetById(id);
             if (comentario != null)
             {
                 _myBlogContext.Comentarios.Remove(comentario);
@@ -30,7 +30,6 @@ namespace MbaBlog.Infrastructure.Repositories.Comentarios
 
         public async Task<ComentarioPost> Edit(ComentarioPost comentarioPost)
         {
-
             _myBlogContext.Entry(comentarioPost).State = EntityState.Detached;
             _myBlogContext.Comentarios.Update(comentarioPost);
             await _myBlogContext.SaveChangesAsync();
@@ -38,9 +37,8 @@ namespace MbaBlog.Infrastructure.Repositories.Comentarios
             return comentarioPost;
         }
 
-        public async Task<ComentarioPost?> GetComentarioById(Guid id)
+        public async Task<ComentarioPost?> GetById(Guid id)
         {
-
             return await _myBlogContext.Comentarios.SingleOrDefaultAsync(p => p.Id == id);
         }
 

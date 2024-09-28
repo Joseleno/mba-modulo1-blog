@@ -10,44 +10,52 @@ namespace MbaBlog.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperPostDto mapperDto) : Controller
+public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil, IMapperPostDto mapperDto, ILogger<PostsController> logger) : Controller
 {
+    private readonly ILogger<PostsController> _logger = logger;
+
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
-    private readonly IUserUtil _iUserUtil = iUserUtil;
+    private readonly IUserUtil _iUserUtil = userUtil;
     private readonly IMapperPostDto _mapperDto = mapperDto;
 
     [HttpGet()]
     [Produces("application/json")]
     public async Task<IEnumerable<Post>> Get()
     {
-        return await _repositoryPost.GetPosts();
+        return await _repositoryPost.GetAll();
     }
 
     [HttpGet("{id:Guid}")]
     [Produces("application/json")]
-    public async Task<Post?> Get(Guid id)
+    public async Task<ActionResult<Post?>> Get(Guid id)
     {
-        return await _repositoryPost.GetPostById(id);
+        var result = await _repositoryPost.GetById(id);
+        if (result is null)
+        {
+            _logger.LogInformation("Post nao encontrado - {Id}", id);
+            return NotFound();
+        }
+        return result;
     }
-    
+
     [HttpPost()]
     public async Task<IActionResult> Create(PostDto postDto)
     {
         if (postDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(postDto.AutorId))
         {
-
+            _logger.LogInformation("Post nao encontrado - {AutorId}", postDto.AutorId);
             return ValidationProblem("Usuario nao cadastrado");
         }
-        
+
         if (!ModelState.IsValid)
         {
-            
+
             return BadRequest(ModelState);
         }
-        
-        var post = await _repositoryPost.CreatePost(_mapperDto.MapPost(postDto));
 
-        return Ok(new { post.Id});
+        var post = await _repositoryPost.Create(_mapperDto.MapPost(postDto));
+
+        return Ok(new { post.Id });
     }
 
     [HttpPut("{id:Guid}")]
@@ -76,7 +84,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
         {
             try
             {
-                await _repositoryPost.EditPost(post);
+                await _repositoryPost.Editar(post);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -103,7 +111,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var post = await _repositoryPost.GetPostById(id);
+        var post = await _repositoryPost.GetById(id);
         if (post != null)
         {
             await _repositoryPost.Delete(post);
@@ -114,6 +122,6 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
 
     private bool PostExists(Guid id)
     {
-        return _repositoryPost.GetPostById(id) != null;
+        return _repositoryPost.GetById(id) != null;
     }
 }
