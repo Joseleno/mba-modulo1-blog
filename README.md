@@ -1,4 +1,4 @@
-# **[Título do Projeto] - Aplicação de Blog Simples com MVC e API RESTful**
+# **[MbaMyBlog] - Aplicação de Blog Simples com MVC e API RESTful**
 
 ## **1. Apresentação**
 
@@ -6,9 +6,8 @@ Bem-vindo ao repositório do projeto **[Título do Projeto]**. Este projeto é u
 O objetivo principal desenvolver uma aplicação de blog que permite aos usuários criar, editar, visualizar e excluir posts e comentários, tanto através de uma interface web utilizando MVC quanto através de uma API RESTful.
 Descreva livremente mais detalhes do seu projeto aqui.
 
-### **Autor(es)**
-- **Nome 1**
-- **Nome 2**
+### **Autor**
+- **Joseleno**
 
 ## **2. Proposta do Projeto**
 
@@ -41,9 +40,12 @@ A estrutura do projeto é organizada da seguinte forma:
 
 
 - src/
-  - Blog.Web/ - Projeto MVC
-  - Blog.Api/ - API RESTful
-  - Blog.Data/ - Modelos de Dados e Configuração do EF Core
+  - MbaBlog.Domain/ - Projeto onde ficam as classes de dominio
+  - MbaBlog.Infrastructure/ - Configuração do EF Core e Repositorios
+  - MbaBlog.Util/ - Projeto contem metodos que podem ser utilizados no projeto MCV e no projeto WebApi, evitando a repetiçao de codigo
+  - MbaBlog.Mvc/ - Projeto MVC
+  - MbaBlog.Api/ - API RESTful
+  - 
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
@@ -67,20 +69,33 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
-   - `git clone https://github.com/seu-usuario/nome-do-repositorio.git`
+   - `git clone https://github.com/Joseleno/mba-modulo1-blog`
    - `cd nome-do-repositorio`
 
 2. **Configuração do Banco de Dados:**
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
-3. **Executar a Aplicação MVC:**
-   - `cd src/Blog.Mvc/`
+3. **NSTRUÇOES PARA ULIZAR O MOCK DE USUARIOS, POSTS E COMENTARIOS:**
+   - Executar o projeto MbaBlog.Mvc ou MbaBlo.WebApi para criar o bando de dados e preencher as tabelas.
+   - Para obter usuario com perfil <<ADMIN>> acesse o banco de dados criado e execute o comando:
+   
+     "select u.UserName from AspNetUsers as u
+    join AspNetUserRoles as r on u.Id = r.UserId"
+
+   - Para obter outros usuarios execute o comando:
+     
+     "select u.UserName from AspNetUsers as u"
+   
+   - Todos os usuarios gerados tem a mesma senha: Teste@1234 
+
+5. **Executar a Aplicação MVC:**
+   - `cd src/MbaBlog.Mvc/`
    - `dotnet run`
    - Acesse a aplicação em: http://localhost:5000
 
-4. **Executar a API:**
-   - `cd src/Blog.Api/`
+6. **Executar a API:**
+   - `cd src/MbaBlog.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: http://localhost:5001/swagger
 
