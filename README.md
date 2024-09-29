@@ -43,9 +43,9 @@ A estrutura do projeto é organizada da seguinte forma:
   - MbaBlog.Domain/ - Projeto onde ficam as classes de dominio
   - MbaBlog.Infrastructure/ - Configuração do EF Core e Repositorios
   - MbaBlog.Util/ - Projeto contem metodos que podem ser utilizados no projeto MCV e no projeto WebApi, evitando a repetiçao de codigo
+  - MbaBlog.Util.Tests/ - Projeto de testes unitarios
   - MbaBlog.Mvc/ - Projeto MVC
   - MbaBlog.Api/ - API RESTful
-  - 
 - README.md - Arquivo de Documentação do Projeto
 - FEEDBACK.md - Arquivo para Consolidação dos Feedbacks
 - .gitignore - Arquivo de Ignoração do Git
