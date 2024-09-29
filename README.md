@@ -1,12 +1,13 @@
-# MBA-Blog
-Projeto para o modulo 1 do MBA DevXpert .NET Full-Stack
-
-Aplicação de Blog Simples com MVC e API RESTful
+[Título do Projeto] - Aplicação de Blog Simples com MVC e API RESTful
 
 1. Apresentação
 
-Bem-vindo ao repositório do projeto mba-modulo1-blog. Este projeto é uma entrega do MBA DevXpert Full Stack .NET e é referente ao módulo Introdução ao Desenvolvimento ASP.NET Core. O objetivo principal desenvolver uma aplicação de blog que permite aos usuários criar, editar, visualizar e excluir posts e comentários, tanto através de uma interface web utilizando MVC quanto através de uma API RESTful. Descreva livremente mais detalhes do seu projeto aqui.
+Bem-vindo ao repositório do projeto [Título do Projeto]. Este projeto é uma entrega do MBA DevXpert Full Stack .NET e é referente ao módulo Introdução ao Desenvolvimento ASP.NET Core. O objetivo principal desenvolver uma aplicação de blog que permite aos usuários criar, editar, visualizar e excluir posts e comentários, tanto através de uma interface web utilizando MVC quanto através de uma API RESTful. Descreva livremente mais detalhes do seu projeto aqui.
 
+Autor(es)
+
+Nome 1
+Nome 2
 2. Proposta do Projeto
 
 O projeto consiste em:
@@ -59,28 +60,12 @@ Passos para Execução
 
 Clone o Repositório:
 
-git clone https://github.com/Joseleno/mba-modulo1-blog
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
 cd nome-do-repositorio
 Configuração do Banco de Dados:
 
 No arquivo appsettings.json, configure a string de conexão do SQL Server.
 Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
-
-<< ATENÇAO: INSTRUÇOES PARA ULIZAR O MOCK DE USUARIOS, POSTS E COMENTARIOS >>
-
-  1. CONFIGURAR CONNECTION STRING
-  2. RODAR O PROJETO MbaBlog.Mvc
-  3. PARA OBTER USUARIO COM PERFIL <<ADMIN>> ACESSE O BANCO DE DADOS CRIADO E EXECUTE O COMANDO:
-  
-    "select u.UserName from AspNetUsers as u
-    join AspNetUserRoles as r on u.Id = r.UserId"
-  4. PARA OBTER OUTROS USUARIOS EXECUTE O COMANDO:
-  
-    "select u.UserName from AspNetUsers as u"
-  5. TODOS OS USUARIOS GERADOS TEM A MESMA SENHA: Teste@1234
-
-<< FIM DAS INSTRUÇOES PARA UTILIZAR O MOCK>>
-    
 Executar a Aplicação MVC:
 
 cd src/Blog.Mvc/
