@@ -42,7 +42,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     [Route("{id:Guid}")]
     public async Task<IActionResult> Edit(Guid id)
     {
-        var comentarioPost = await _repositoryComentario.GetComentarioById(id);
+        var comentarioPost = await _repositoryComentario.GetById(id);
         if (comentarioPost == null)
         {
             return NotFound();
@@ -85,7 +85,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     [Route("excluir/{id:Guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var comentarioPost = await _repositoryComentario.GetComentarioById(id);
+        var comentarioPost = await _repositoryComentario.GetById(id);
         if (comentarioPost == null)
         {
             return NotFound();
@@ -99,7 +99,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        var comentarioPost = await _repositoryComentario.GetComentarioById(id);
+        var comentarioPost = await _repositoryComentario.GetById(id);
         if (comentarioPost != null)
         {
             await _repositoryComentario.Delete(id);

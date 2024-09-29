@@ -8,7 +8,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
 {
     private readonly MbaBlogDbContext _myBlogContext = myBlogContext;
 
-    public async Task<Post> CreatePost(Post post)
+    public async Task<Post> Create(Post post)
     {
         _myBlogContext.Posts.Add(post);
         await _myBlogContext.SaveChangesAsync();
@@ -22,7 +22,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         await _myBlogContext.SaveChangesAsync();
     }
 
-    public async Task<Post> EditPost(Post post)
+    public async Task<Post> Editar(Post post)
     {
         _myBlogContext.Posts.Update(post);
         await _myBlogContext.SaveChangesAsync();
@@ -30,17 +30,21 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         return post;
     }
 
-    public async Task<Post?> GetPostById(Guid postId)
+    public async Task<Post?> GetById(Guid postId)
     {
-        return await _myBlogContext.Posts.Include(x => x.Comentarios).SingleOrDefaultAsync(p => p.Id == postId);
+        if (_myBlogContext.Posts == null)
+        {
+            return null;
+        }
+        return await _myBlogContext.Posts.Include(x => x.Comentarios).FirstOrDefaultAsync(p => p.Id == postId);
     }
 
-    public async Task<IEnumerable<Post>> GetPosts()
+    public async Task<IEnumerable<Post>> GetAll()
     {
         return await _myBlogContext.Posts.OrderByDescending(p => p.CriadoEm).ToListAsync();
     }
 
-    public async Task<IEnumerable<Post>> GetPostsByIdAutor(Guid userId)
+    public async Task<IEnumerable<Post>> GetAllByIdAutor(Guid userId)
     {
         var result = await _myBlogContext.Posts.Where(p => p.AutorId.Equals(userId)).ToListAsync();
 

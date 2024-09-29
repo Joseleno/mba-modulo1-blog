@@ -4,15 +4,15 @@ namespace MbaBlog.Infrastructure.Repositories.Posts;
 
 public interface IRepositoryPost
 {
-    Task<Post> CreatePost(Post post);
+    Task<Post> Create(Post post);
 
-    Task<Post> EditPost(Post post);
+    Task<Post> Editar(Post post);
 
-    Task<IEnumerable<Post>> GetPostsByIdAutor(Guid id);
+    Task<IEnumerable<Post>> GetAllByIdAutor(Guid id);
 
-    Task<IEnumerable<Post>> GetPosts();
+    Task<IEnumerable<Post>> GetAll();
 
-    Task<Post?> GetPostById(Guid postId);
+    Task<Post?> GetById(Guid postId);
 
     Task Delete(Post post);
 

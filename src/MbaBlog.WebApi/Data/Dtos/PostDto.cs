@@ -6,6 +6,7 @@ namespace MbaBlog.WebApi.Data.Dtos
 {
     public class PostDto
     {
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public required Guid AutorId { get; set; }
 
         [DisplayName("Titulo")]

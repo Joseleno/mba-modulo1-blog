@@ -6,8 +6,10 @@ namespace MbaBlog.WebApi.Data.Dtos
 {
     public class ComentarioDto
     {
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public Guid PostId { get; set; }
 
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public Guid AutorId { get; set; }
 
         [DisplayName("Comentario")]

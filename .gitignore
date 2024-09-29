@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /src/MbaBlog.Mvc/appsettings.Development.json
+.DS_Store

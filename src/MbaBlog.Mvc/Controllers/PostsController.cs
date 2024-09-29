@@ -18,13 +18,13 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        return View(await _repositoryPost.GetPosts());
+        return View(await _repositoryPost.GetAll());
     }
 
     [Route("{id:Guid}")]
     public async Task<IActionResult> Details(Guid id)
     {
-        var post = await _repositoryPost.GetPostById(id);
+        var post = await _repositoryPost.GetById(id);
         if (post == null)
         {
             return NotFound();
@@ -39,7 +39,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
         return View();
     }
 
-    
+
     [HttpPost("novo")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Titulo,Texto,CriadoEm")] Post post)
@@ -47,7 +47,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
         if (ModelState.IsValid)
         {
             post.AutorId = _iUserUtil.GetUser().UserId;
-            await _repositoryPost.CreatePost(post);
+            await _repositoryPost.Create(post);
 
             return RedirectToAction(nameof(Index));
         }
@@ -58,7 +58,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     public async Task<IActionResult> Edit(Guid id)
     {
 
-        var post = await _repositoryPost.GetPostById(id);
+        var post = await _repositoryPost.GetById(id);
         if (!_iUserUtil.HasAthorization(post!.AutorId))
         {
             return RedirectToAction("Index", "Validations");
@@ -94,7 +94,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
         {
             try
             {
-                await _repositoryPost.EditPost(post);
+                await _repositoryPost.Editar(post);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -111,7 +111,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     [Route("excluir/{id:Guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var post = await _repositoryPost.GetPostById(id);
+        var post = await _repositoryPost.GetById(id);
         if (!_iUserUtil.HasAthorization(post!.AutorId))
         {
             return RedirectToAction("Index", "Validations");
@@ -129,12 +129,12 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
-        var post = await _repositoryPost.GetPostById(id);
+        var post = await _repositoryPost.GetById(id);
         if (post != null)
         {
             await _repositoryPost.Delete(post);
         }
         return RedirectToAction(nameof(Index));
     }
-    
+
 }
