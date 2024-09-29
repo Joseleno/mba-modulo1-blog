@@ -10,7 +10,7 @@ public interface IRepositoryPost
 
     Task<IEnumerable<Post>> GetAllByIdAutor(Guid id);
 
-    Task<IEnumerable<Post>> GetAll(bool incluirComentario);
+    Task<IEnumerable<Post>> GetAll(bool? incluirComentario = false);
 
     Task<Post?> GetById(Guid postId);
 

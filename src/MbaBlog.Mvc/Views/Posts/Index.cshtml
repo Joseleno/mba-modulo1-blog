@@ -1,26 +1,19 @@
 ﻿@model IEnumerable<MbaBlog.Domain.Domain.Post>
 
 <p>
-    <a asp-action="Create"><input type="button" value="Criar Post" class="btn btn-success" size="5" /></a>
+    <a asp-action="Create"><input type="button" value="Criar Post" class="btn btn-success" /></a>
 </p>
 
 @foreach (var item in Model)
 {
     <div class="blog-post">
-    <h3>@Html.DisplayFor(modelItem => item.Titulo)<small>@Html.DisplayFor(modelItem => item.CriadoEm)</small></h3>
-    <img class="thumbnail" src="https://placehold.it/850x350">
-    <p>@Html.DisplayFor(modelItem => item.Texto)</p>
-    <div class="callout">
-        <ul class="menu simple">
-            <li><a href="#">Author: Mike Mikers</a></li>
-            <li>
-                <a href="#">Comments: @Html.DisplayFor(modelItem => (item.Comentarios.Any() ? item.Comentarios.Count() :
-                    0))</a>
-            </li>
-            <li> <a asp-action="Details" asp-route-id="@item.Id"><input type="button" value="Leia mais"
-                        class="btn btn-info" /></a></li>
-        </ul>
+        <h3>@Html.DisplayFor(modelItem => item.Titulo)</h3> <small>@Html.DisplayFor(modelItem => item.CriadoEm)</small>
+        <p>
+            @Html.DisplayFor(modelItem => item.Texto) <a asp-action="Details" asp-route-id="@item.Id">
+                <input type="button" value="Leia mais"
+                        class="btn btn-info" />
+            </a>
+            <hr />
+        </p>
     </div>
-</div>
-
 }

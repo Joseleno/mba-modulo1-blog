@@ -17,10 +17,9 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
 
 
     [AllowAnonymous]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index() 
     {
-        ViewData["Username"] = new ViewData[0];
-        return View(await _repositoryPost.GetAll(true));
+        return View(await _repositoryPost.GetAll());
     }
 
     [Route("{id:Guid}")]
