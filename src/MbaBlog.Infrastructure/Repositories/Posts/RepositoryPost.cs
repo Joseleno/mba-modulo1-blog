@@ -39,8 +39,12 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         return await _myBlogContext.Posts.Include(x => x.Comentarios).FirstOrDefaultAsync(p => p.Id == postId);
     }
 
-    public async Task<IEnumerable<Post>> GetAll()
+    public async Task<IEnumerable<Post>> GetAll(bool incluirComentario)
     {
+        if (incluirComentario)
+        {
+            return await _myBlogContext.Posts.Include(x => x.Comentarios).OrderByDescending(p => p.CriadoEm).ToListAsync();
+        }
         return await _myBlogContext.Posts.OrderByDescending(p => p.CriadoEm).ToListAsync();
     }
 
