@@ -6,12 +6,14 @@ using MbaBlog.Util.Users;
 using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MbaBlog.WebApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil, IMapperPostDto mapperDto, ILogger<PostsController> logger) : Controller
+public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil, IMapperPostDto mapperDto, ILogger<PostsController> logger) : ControllerBase
 {
     private readonly ILogger<PostsController> _logger = logger;
 
@@ -19,6 +21,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     private readonly IUserUtil _iUserUtil = userUtil;
     private readonly IMapperPostDto _mapperDto = mapperDto;
 
+    [AllowAnonymous]
     [HttpGet()]
     [Produces("application/json")]
     public async Task<IEnumerable<Post>> Get()

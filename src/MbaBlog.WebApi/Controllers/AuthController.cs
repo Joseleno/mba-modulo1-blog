@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using MbaBlog.WebApi.Data.Dtos;
+using MbaBlog.WebApi.Data.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +12,16 @@ namespace MbaBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AutorizacaoController(SignInManager<IdentityUser> signInManager,
+    public class AuthController(SignInManager<IdentityUser> signInManager,
                           UserManager<IdentityUser> userManager,
                           IOptions<JwtSettings> jwtSettings) : ControllerBase
     {
-         private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
-        [HttpPost("registrar")]
-        public async Task<ActionResult> Registrar(RegisterUserViewModel registerUser)
+        [HttpPost("novo-usuario")]
+        public async Task<ActionResult> Registrar(RegisterUser registerUser)
         {
             var user = new IdentityUser
             {
@@ -34,35 +35,35 @@ namespace MbaBlog.WebApi.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, false);
-                return Ok(GerarJwt());
+                return Ok(CreateToken());
             }
 
-            return Problem("Falha ao registrar o usuário");
+            return Problem("Erro no cadastro de usuario");
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(LoginUserViewModel loginUser)
+        public async Task<ActionResult> Login(LoginUser loginUser)
         {
             var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
 
             if (result.Succeeded)
             {
-                return Ok(GerarJwt());
+                return Ok(CreateToken());
             }
 
             return Problem("Usuário ou senha incorretos");
         }
 
-        private string GerarJwt()
+        private string CreateToken()
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo!);
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret!);
 
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = _jwtSettings.Emissor,
-                Audience = _jwtSettings.Audiencia,
-                Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpiracaoHoras),
+                Issuer = _jwtSettings.Issuer,
+                Audience = _jwtSettings.Audience,
+                Expires = DateTime.UtcNow.AddHours(_jwtSettings.TokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             });
 

@@ -13,14 +13,16 @@ using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
 using MbaBlog.Infrastructure.Repositories.Posts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MbaBlog.WebApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ComentariosController(IRepositoryComentario repositoryComentario,
     IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario,
-    ILogger<ComentariosController> logger) : Controller
+    ILogger<ComentariosController> logger) : ControllerBase
 {
     private readonly IRepositoryComentario _repositoryComentario = repositoryComentario;
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
@@ -91,7 +93,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario,
             return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
         }
 
-        var comentarioBd = await _repositoryComentario.GetById(id); ;
+        var comentarioBd = await _repositoryComentario.GetById(id);
 
         if (comentarioBd!.PostId != comentario.PostId)
         {
