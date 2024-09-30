@@ -4,48 +4,41 @@
     ViewData["Title"] = "Detalhes";
 }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-12">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Texto)
-        </dt>
-        <dd class = "col-sm-12">
-            @Html.DisplayFor(model => model.Texto)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Comentarios)
-        </dt>
-        @foreach (var item in Model.Comentarios!)
-        {
-            <div>
-                <dd>
-                    @Html.DisplayFor(modelItem => item.Comentario)
-                </dd>
-            </div>
-            <div>
-                <a asp-controller="Comentarios" asp-action="Edit" asp-route-id="@item.Id"><input type="button" value="Alterar" class="btn btn-warning" size="5" /></a> |
-                <a asp-controller="Comentarios" asp-action="Delete" asp-route-id="@item.Id"><input type="button" value="Excluir" class="btn btn-danger" size="5" /></a>
-            </div>
-        }
-    </dl>
-</div>
-<div >
-    <dl>
-        <dd>
-            <a asp-controller="Comentarios" asp-action="Create" asp-route-id="@Model?.Id"><input type="button" value="Novo Comentario" class="btn btn-primary" size="5" /></a>
-        </dd>
-    
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id"><input type="button" value="Editar Post" class="btn btn-info" size="5" /></a> |
-    <a asp-action="Delete" asp-route-id="@Model?.Id"><input type="button" value="Excluir Post" class="btn btn-danger" size="5" /></a> | 
-    <a asp-action="Index"><input type="button" value="Voltar ao Inicio" class="btn btn-secondary" size="5" /></a>
-</div>
+<form id="post-detalhe" method="post">
+    <div class="grid-x align-center">
+        <div class="blog-post">
+            <h3>@Html.DisplayFor(model => model.Titulo)</h3>
+            <p style="padding-top: 20px;">
+                @Html.DisplayFor(model => model.Texto)
+                <br />
+                <span class="align-left" style="padding-top: 0px; font-style: italic;">
+                    Criado em: @Html.DisplayFor(model => model.CriadoEm)
+                </span>
+            </p>
+            <p>
+                @if (Model.Comentarios.Any())
+                {
+                <div style=" padding-bottom: 0px;">
+                    <strong>@Html.DisplayNameFor(model => model.Comentarios)</strong>
+                </div>
+                    @foreach (var item in Model.Comentarios!)
+                    {
+                    <div class="blog-post" style="padding-top: 10px;">
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        <br />
+                        <a asp-controller="Comentarios" asp-action="Edit" asp-route-id="@item.Id"><input type="button"
+                                value="Alterar" class="button warning" /></a> |
+                        <a asp-controller="Comentarios" asp-action="Delete" asp-route-id="@item.Id"><input type="button"
+                                value="Excluir" class="button alert" /></a>
+                    </div>
+                    }
+                }
+            </p>
+        </div>
+        <div class="align-center" style="padding-top: 20px;">
+            <a class="button" asp-action="Edit" asp-route-id="@Model?.Id">Editar Post</a> |
+            <a class="button alert" asp-action="Delete" asp-route-id="@Model?.Id">Excluir Post</a> |
+            <a class="button secondary" asp-action="Index">Inicio</a>
+        </div>
+    </div>
+</form>

@@ -2,25 +2,26 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="menu">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li>
-        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Ola @User.Identity?.Name!</a>
-    </li>
-    <li>
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Posts", new { area = "" })">
-            <button  type="submit" class="alert button">Sair</button>
-        </form>
-    </li>
-}
-else
-{
-    <li>
-        <a asp-area="Identity" asp-page="/Account/Register">Novo Uuario</a>
-    </li>
-    <li>
-        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
+<ul class="menu" style="background-color: darkblue; color:aliceblue">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="menu-text">
+            <span style="color:aliceblue">Bem vindo, @User.Identity?.Name!</span>
+        </li>
+        <li class="menu-text">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                asp-route-returnUrl="@Url.Action("Index", "Posts", new { area = "" })">
+                <button type="submit" class="hollow button alert" style="color:rgb(249, 249, 249)">Sair</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Register" style="color:aliceblue">Novo Uuario</a>
+        </li>
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Login" style="color:aliceblue">Login</a>
+        </li>
+    }
 </ul>

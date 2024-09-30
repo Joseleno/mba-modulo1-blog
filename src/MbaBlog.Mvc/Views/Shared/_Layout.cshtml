@@ -1,53 +1,64 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MbaBlog</title>
-    <!-- foundation-float.min.css: Compressed CSS with legacy Float Grid -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-float.min.css" crossorigin="anonymous">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - MbaBlog</title>
+  <!-- foundation-float.min.css: Compressed CSS with legacy Float Grid -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-float.min.css"
+    crossorigin="anonymous">
 
-<!-- foundation-prototype.min.css: Compressed CSS with prototyping classes -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-prototype.min.css" crossorigin="anonymous">
+  <!-- foundation-prototype.min.css: Compressed CSS with prototyping classes -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-prototype.min.css"
+    crossorigin="anonymous">
 
-<!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-rtl.min.css" crossorigin="anonymous">
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MbaBlog.Mvc.styles.css" asp-append-version="true" /> *@
+  <!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.9.0/dist/css/foundation-rtl.min.css"
+    crossorigin="anonymous">
+  @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/MbaBlog.Mvc.styles.css" asp-append-version="true" /> *@
 </head>
+
 <body>
-    <div class="top-bar">
-      <div class="top-bar-left">
-        <ul class="menu">
-          <li class="menu-text"><a asp-controller="Posts" asp-action="Index">MbaBlog</a></li>
-        </ul>
-      </div>
-      <div class="top-bar-right">
-        <ul class="menu">
-          <partial name="_LoginPartial" />
-        </ul>
+  <div class="top-bar" style="background-color: darkblue;">
+    <div class="top-bar-left">
+      <ul class="menu" style="background-color: darkblue; color: aliceblue;">
+        <li class="menu-text" style="color: aliceblue;"><a style="color: aliceblue;" asp-controller="Posts" asp-action="Index">
+            <H3><strong>MbaBlog</strong></H3>
+          </a></li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <partial name="_LoginPartial" />
+      </ul>
+    </div>
+  </div>
+  <article class="grid-container">
+
+    @RenderBody()
+
+  </article>
+  <footer class="callout secondary">
+
+    <div class="small-12 medium-shrink cell">
+      <div>
+        &copy; 2024 - MbaBlog - <a asp-area="" asp-controller="Posts" asp-action="Index">Home</a>
       </div>
     </div>
-    <article class="grid-container">
-        <div class="grid-x align-center">
-                @RenderBody()
-        </div>
+  </footer>
 
-    </article>
-        <div class="small-12 medium-shrink cell">
-            <div>
-                &copy; 2024 - MbaBlog - <a asp-area="" asp-controller="Posts" asp-action="Index">Home</a>
-            </div>
-        </div>
 
-      
 
-    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> *@
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+  @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script> *@
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

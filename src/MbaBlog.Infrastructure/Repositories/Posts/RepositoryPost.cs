@@ -39,7 +39,7 @@ public class RepositoryPost(MbaBlogDbContext myBlogContext) : IRepositoryPost
         return await _myBlogContext.Posts.Include(x => x.Comentarios).FirstOrDefaultAsync(p => p.Id == postId);
     }
 
-    public async Task<IEnumerable<Post>> GetAll(bool? incluirComentario)
+    public async Task<IEnumerable<Post>> GetAll(bool? incluirComentario = false)
     {
         if (incluirComentario ?? false)
         {
