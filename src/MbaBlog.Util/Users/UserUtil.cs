@@ -23,10 +23,10 @@ public class UserUtil(IAppIdentityUser appIdentityUser, IRepositoryUserRole iUse
 
     public bool HasAthorization(Guid id)
     {
-        var role = _iUserRole.GetRole(id);
-        var usertId = _appIdentityUser.GetUserId();
+        var userId = _appIdentityUser.GetUserId();
+        var role = _iUserRole.GetRole(userId);
 
-        if ((usertId == id) || (role != null && role.Equals("admin", StringComparison.OrdinalIgnoreCase)))
+        if ((userId == id) || (role != null && role.Equals("admin", StringComparison.OrdinalIgnoreCase)))
         {
             return true;
         }
