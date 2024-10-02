@@ -8,7 +8,7 @@
     <div class="grid-x align-center">
         <div class="blog-post" style="padding-top: 20px;">
             <h3>@Html.DisplayFor(model => model.Titulo)</h3>
-            <p>
+            <p style="text-align:justify; text-justify: inter-word; padding-top: 10px;">
                 @Html.DisplayFor(model => model.Texto)
                 <br />
                 <span class="align-left" style="padding-top: 0px; font-style: italic;">
@@ -18,19 +18,19 @@
             <p>
                 @if (Model.Comentarios.Any())
                 {
-                <div style=" padding-bottom: 0px;">
+                <p style=" padding-bottom: 0px;">
                     <strong>@Html.DisplayNameFor(model => model.Comentarios)</strong>
-                </div>
+                </p>
                     @foreach (var item in Model.Comentarios!)
                     {
-                    <div class="blog-post" style="padding-top: 10px;">
+                    <p class="blog-post" style="padding-top: 10px; text-align:justify; text-justify: inter-word;">
                             @Html.DisplayFor(modelItem => item.Comentario)
                         <br />
                         <a class="button warning" asp-controller="Comentarios" asp-action="Edit"
                             asp-route-id="@item.Id">Alterar</a>&nbsp;&nbsp;&nbsp;
                         <a class="button alert" asp-controller="Comentarios" asp-action="Delete"
                             asp-route-id="@item.Id">Excluir</a>
-                    </div>
+                    </p>
                     }
                 }
             </p>
