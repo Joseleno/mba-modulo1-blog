@@ -6,46 +6,53 @@
 
 <form id="post-detalhe" method="post">
     <div class="grid-x align-center">
-        <div class="blog-post" style="padding-top: 20px;">
-            <h3>@Html.DisplayFor(model => model.Titulo)</h3>
-            <p style="text-align:justify; text-justify: inter-word; padding-top: 10px;">
-                @Html.DisplayFor(model => model.Texto)
-                <br />
-                <span class="align-left" style="padding-top: 0px; font-style: italic;">
-                    Criado em: @Html.DisplayFor(model => model.CriadoEm)
-                </span>
-            </p>
-            <p>
-                @if (Model.Comentarios.Any())
-                {
-                <p style=" padding-bottom: 0px;">
-                    <strong>@Html.DisplayNameFor(model => model.Comentarios)</strong>
+        <div class="cell medium-10">
+            <div class="blog-post" style="padding-top: 20px;">
+                <h3>@Html.DisplayFor(model => model.Titulo)</h3>
+                <p style="text-align:justify; text-justify: inter-word; padding-top: 10px;">
+                    @Html.DisplayFor(model => model.Texto)
+                    <br />
+                    <span class="align-left" style="padding-top: 0px; font-style: italic;">
+                        Criado em: @Html.DisplayFor(model => model.CriadoEm)
+                    </span>
                 </p>
-                    @foreach (var item in Model.Comentarios!)
+                <p>
+                    @if (Model.Comentarios.Any())
                     {
-                    <p class="blog-post" style="padding-top: 10px; text-align:justify; text-justify: inter-word;">
-                            @Html.DisplayFor(modelItem => item.Comentario)
-                        <br />
-                        <a class="button warning" asp-controller="Comentarios" asp-action="Edit"
-                            asp-route-id="@item.Id">Alterar</a>&nbsp;&nbsp;&nbsp;
-                        <a class="button alert" asp-controller="Comentarios" asp-action="Delete"
-                            asp-route-id="@item.Id">Excluir</a>
+                    <p style=" padding-bottom: 0px;">
+                        <strong>@Html.DisplayNameFor(model => model.Comentarios)</strong>
                     </p>
+                        @foreach (var item in Model.Comentarios!)
+                        {
+                        <p class="blog-post" style="padding-top: 10px; text-align:justify; text-justify: inter-word;">
+                                @Html.DisplayFor(modelItem => item.Comentario)
+                            <br />
+                            <a class="button warning" asp-controller="Comentarios" asp-action="Edit"
+                                asp-route-id="@item.Id">Alterar</a>&nbsp;&nbsp;&nbsp;
+                            <a class="button alert" asp-controller="Comentarios" asp-action="Delete"
+                                asp-route-id="@item.Id">Excluir</a>
+                        </p>
+                        }
                     }
-                }
-            </p>
-            <p>
-            <div class="align-center" style="padding-top: 10px;">
-                <a class="button" asp-controller="Comentarios" asp-action="Create" asp-route-id="@Model?.Id">Novo
-                    Comentario</a>
+                </p>
+                <p>
+                <div class="align-center" style="padding-top: 10px;">
+                    <a class="button" asp-controller="Comentarios" asp-action="Create" asp-route-id="@Model?.Id">Novo
+                        Comentario</a>
+                </div>
+                </p>
             </div>
-            </p>
-        </div>
-        <div class="align-center" style="padding-top: 20px; padding-botom: 50px;">
-            <a class="hollow button" asp-action="Edit" asp-route-id="@Model?.Id">Editar Post</a>&nbsp;&nbsp;&nbsp;
-            <a class="hollow button alert" asp-action="Delete" asp-route-id="@Model?.Id">Excluir
-                Post</a>&nbsp;&nbsp;&nbsp;
-            <a class="hollow button secondary" asp-action="Index">Inicio</a>
+            <div class="grid-x align-center">
+                <p
+                    style="padding-top: 20px; padding-botom: 50px; align-items: center; align-self: center; align-content: center;">
+                    <a class="hollow button" asp-action="Edit" asp-route-id="@Model?.Id">Editar
+                        Post</a>&nbsp;&nbsp;&nbsp;
+                    <a class="hollow button alert" asp-action="Delete" asp-route-id="@Model?.Id">Excluir
+                        Post</a>&nbsp;&nbsp;&nbsp;
+                    <a class="hollow button secondary" asp-action="Index">Inicio</a>
+                </p>
+
+            </div>
         </div>
     </div>
 </form>
