@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
+using Microsoft.Extensions.Hosting;
 
 namespace MbaBlog.Mvc.Controllers;
 
 [Authorize]
 [Route("comentarios")]
-public class ComentariosController(IRepositoryComentario repositoryComentario, IUserUtil iUserUtil) : Controller
+public class ComentariosController(IRepositoryComentario repositoryComentario, IUserUtil userUtil) : Controller
 {
     private readonly IRepositoryComentario _repositoryComentario = repositoryComentario;
-    private readonly IUserUtil _iUserUtil = iUserUtil;
+    private readonly IUserUtil _userUtil = userUtil;
 
     public IActionResult Create(Guid id)
     {
@@ -27,7 +28,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     {
         if (ModelState.IsValid)
         {
-            var autorId = _iUserUtil.GetUser().UserId;
+            var autorId = _userUtil.GetUser().UserId;
 
             comentarioPost.AutorId = autorId;
 
@@ -48,7 +49,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
             return NotFound();
         }
         ViewData["AutorId"] = comentarioPost.AutorId;
-        ViewData["ComentarioPostId"] = comentarioPost.PostId;
+        ViewData["PostId"] = comentarioPost.PostId;
         return View(comentarioPost);
     }
 
@@ -61,7 +62,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
             return NotFound();
         }
 
-        if (!_iUserUtil.HasAthorization(comentarioPost!.AutorId))
+        if (!_userUtil.HasAthorization(comentarioPost!.AutorId))
         {
             return RedirectToAction("Index", "Validations");
         }
@@ -100,10 +101,18 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         var comentarioPost = await _repositoryComentario.GetById(id);
-        if (comentarioPost != null)
+
+        if (comentarioPost == null)
         {
-            await _repositoryComentario.Delete(id);
+            return NotFound();
         }
+
+        if (!_userUtil.HasAthorization(comentarioPost!.AutorId))
+        {
+            return RedirectToAction("Index", "Validations");
+        }
+        
+        await _repositoryComentario.Delete(id);
 
         return RedirectToAction("Index", "Posts");
     }

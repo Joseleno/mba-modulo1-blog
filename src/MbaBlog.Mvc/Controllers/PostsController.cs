@@ -4,19 +4,20 @@ using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Posts;
+using Azure.Identity;
 
 namespace MbaBlog.Mvc.Controllers;
 
 [Authorize]
 [Route("[controller]")]
-public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil) : Controller
+public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
-    private readonly IUserUtil _iUserUtil = iUserUtil;
+    private readonly IUserUtil _userUtil = userUtil;
 
 
     [AllowAnonymous]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index() 
     {
         return View(await _repositoryPost.GetAll());
     }
@@ -30,6 +31,10 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
             return NotFound();
         }
 
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
         return View(post);
     }
 
@@ -46,7 +51,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     {
         if (ModelState.IsValid)
         {
-            post.AutorId = _iUserUtil.GetUser().UserId;
+            post.AutorId = _userUtil.GetUser().UserId;
             await _repositoryPost.Create(post);
 
             return RedirectToAction(nameof(Index));
@@ -59,7 +64,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     {
 
         var post = await _repositoryPost.GetById(id);
-        if (!_iUserUtil.HasAthorization(post!.AutorId))
+        if (!_userUtil.HasAthorization(post!.AutorId))
         {
             return RedirectToAction("Index", "Validations");
         }
@@ -80,7 +85,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
             return NotFound();
         }
 
-        if (!_iUserUtil.HasAthorization(post!.AutorId))
+        if (!_userUtil.HasAthorization(post!.AutorId))
         {
             return RedirectToAction("Index", "Validations");
         }
@@ -112,15 +117,12 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     public async Task<IActionResult> Delete(Guid id)
     {
         var post = await _repositoryPost.GetById(id);
-        if (!_iUserUtil.HasAthorization(post!.AutorId))
-        {
-            return RedirectToAction("Index", "Validations");
-        }
 
         if (post == null)
         {
             return NotFound();
         }
+
         return View(post);
     }
 
@@ -130,10 +132,18 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil iUserUtil
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         var post = await _repositoryPost.GetById(id);
-        if (post != null)
+
+        if (post == null)
         {
-            await _repositoryPost.Delete(post);
+            return NotFound();
         }
+
+        if (!_userUtil.HasAthorization(post!.AutorId))
+        {
+            return RedirectToAction("Index", "Validations");
+        }
+
+            await _repositoryPost.Delete(post);
         return RedirectToAction(nameof(Index));
     }
 

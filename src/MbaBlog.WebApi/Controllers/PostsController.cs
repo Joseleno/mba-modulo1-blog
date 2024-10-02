@@ -24,9 +24,9 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     [AllowAnonymous]
     [HttpGet()]
     [Produces("application/json")]
-    public async Task<IEnumerable<Post>> Get()
+    public async Task<IEnumerable<Post>> Get(bool incluirComentarios)
     {
-        return await _repositoryPost.GetAll();
+        return await _repositoryPost.GetAll(incluirComentarios);
     }
 
     [HttpGet("{id:Guid}")]
@@ -59,7 +59,6 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
 
         if (!ModelState.IsValid)
         {
-
             return BadRequest(ModelState);
         }
 

@@ -4,35 +4,36 @@
     ViewData["Title"] = "Editar";
 }
 
-<h4>Editar Post</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group col-md-12">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-12 pt-2">
-                <label asp-for="Texto" class="control-label"></label>
-                <textarea asp-for="Texto" type="Text" class="form-control" rows="10" wrap="soft"></textarea>
-                <span asp-validation-for="Texto" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="AutorId" />
-            <input type="hidden" asp-for="ModificadoEm" value=@DateTime.Now class="form-control">
-            <input type="hidden" asp-for="CriadoEm" class="form-control">
-            <div class="form-group">
-                <p class="pt-3">
-                    <input type="submit" value="Salvar" class="btn btn-primary" /> | 
-                    <a asp-action="Index"><input type="button" value="Voltar ao Inicio" class="btn btn-secondary" size="5" /></a>
+<form asp-action="Edit">
+    <div class="grid-x align-center" style="padding-top: 20px;">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="AutorId" />
+        <input type="hidden" asp-for="ModificadoEm" value=@DateTime.Now class="form-control">
+        <input type="hidden" asp-for="CriadoEm" class="form-control">
+
+        <div class="cell medium-10">
+            <div class="blog-post">
+                <h3>Alterar Post</h3>
+                <p>
+                    <label asp-for="Titulo" class="control-label"></label>
+                    <input asp-for="Titulo" class="form-control" maxlength="80" />
+                    <span asp-validation-for="Titulo" style="color: red;"></span>
                 </p>
+                <p>
+                    <label asp-for="Texto" class="control-label"></label>
+                    <textarea asp-for="Texto" type="Text" class="form-control" rows="10" wrap="soft"
+                        maxlength="1500"></textarea>
+                    <span asp-validation-for="Texto" style="color: red;"></span>
+                </p>
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="button" />&nbsp;&nbsp;&nbsp;
+                    <a href='javascript:history.go(-1)' class="button secondary">Voltar</a>&nbsp;&nbsp;&nbsp;
+                    <a class="hollow button secondary" asp-action="Index">Inicio</a>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     @{

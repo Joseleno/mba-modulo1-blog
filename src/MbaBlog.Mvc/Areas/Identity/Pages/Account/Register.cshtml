@@ -1,0 +1,44 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="grid-x align-center">
+    <form id="account" method="post">
+        <div class="blog-post">
+            <h3>Crie aqui seu novo usuario</h3>
+            <hr />
+            <p>
+            <div asp-validation-summary="ModelOnly" style="color: red;" role="alert"></div>
+            <div>
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                    placeholder="name@example.com" />
+                <span asp-validation-for="Input.Email" style="color: red;"></span>
+            </div>
+            <div>
+                <label asp-for="Input.Password" class="form-label">Senha</label>
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"
+                    placeholder="senha" />
+                <span asp-validation-for="Input.Password" style="color: red;"></span>
+            </div>
+            <div>
+                <label asp-for="Input.ConfirmPassword">Confirme sua senha</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                    aria-required="true" placeholder="password" />
+                <span asp-validation-for="Input.ConfirmPassword" style="color: red;"></span>
+            </div>
+            <div>
+                <button id="login-submit" type="submit" class="button">Cadastrar</button> |
+                <a asp-controller="Posts" asp-action="Index"><input type="button" value="Inicio"
+                        class="button secondary" /></a>
+            </div>
+            </p>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
