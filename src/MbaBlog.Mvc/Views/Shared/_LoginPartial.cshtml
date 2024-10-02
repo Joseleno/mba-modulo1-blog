@@ -2,7 +2,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="menu" style="background-color: darkblue; color:aliceblue">
+<ul class="menu" style="background-color: rgb(0, 33, 60); color:aliceblue">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="menu-text">
@@ -11,7 +11,7 @@
         <li class="menu-text">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                 asp-route-returnUrl="@Url.Action("Index", "Posts", new { area = "" })">
-                <button type="submit" class="hollow button alert" style="color:rgb(249, 249, 249)">Sair</button>
+                <button type="submit" class="hollow button secondary" style="color:rgb(249, 249, 249)">Sair</button>
             </form>
         </li>
     }

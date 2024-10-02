@@ -6,9 +6,9 @@
 
 <form id="post-detalhe" method="post">
     <div class="grid-x align-center">
-        <div class="blog-post">
+        <div class="blog-post" style="padding-top: 20px;">
             <h3>@Html.DisplayFor(model => model.Titulo)</h3>
-            <p style="padding-top: 20px;">
+            <p>
                 @Html.DisplayFor(model => model.Texto)
                 <br />
                 <span class="align-left" style="padding-top: 0px; font-style: italic;">
@@ -26,19 +26,26 @@
                     <div class="blog-post" style="padding-top: 10px;">
                             @Html.DisplayFor(modelItem => item.Comentario)
                         <br />
-                        <a asp-controller="Comentarios" asp-action="Edit" asp-route-id="@item.Id"><input type="button"
-                                value="Alterar" class="button warning" /></a> |
-                        <a asp-controller="Comentarios" asp-action="Delete" asp-route-id="@item.Id"><input type="button"
-                                value="Excluir" class="button alert" /></a>
+                        <a class="button warning" asp-controller="Comentarios" asp-action="Edit"
+                            asp-route-id="@item.Id">Alterar</a>&nbsp;&nbsp;&nbsp;
+                        <a class="button alert" asp-controller="Comentarios" asp-action="Delete"
+                            asp-route-id="@item.Id">Excluir</a>
                     </div>
                     }
                 }
             </p>
+            <p>
+            <div class="align-center" style="padding-top: 10px;">
+                <a class="button" asp-controller="Comentarios" asp-action="Create" asp-route-id="@Model?.Id">Novo
+                    Comentario</a>
+            </div>
+            </p>
         </div>
-        <div class="align-center" style="padding-top: 20px;">
-            <a class="button" asp-action="Edit" asp-route-id="@Model?.Id">Editar Post</a> |
-            <a class="button alert" asp-action="Delete" asp-route-id="@Model?.Id">Excluir Post</a> |
-            <a class="button secondary" asp-action="Index">Inicio</a>
+        <div class="align-center" style="padding-top: 20px; padding-botom: 50px;">
+            <a class="hollow button" asp-action="Edit" asp-route-id="@Model?.Id">Editar Post</a>&nbsp;&nbsp;&nbsp;
+            <a class="hollow button alert" asp-action="Delete" asp-route-id="@Model?.Id">Excluir
+                Post</a>&nbsp;&nbsp;&nbsp;
+            <a class="hollow button secondary" asp-action="Index">Inicio</a>
         </div>
     </div>
 </form>

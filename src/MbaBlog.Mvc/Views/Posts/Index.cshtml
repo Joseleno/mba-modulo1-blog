@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<MbaBlog.Domain.Domain.Post>
-<div class="grid-x align-right" style="padding-top: 20px;">
-    <p>
-        <a asp-action="Create" class="hollow button large">Novo Post</a>
-    </p>
-</div>
 <div class="grid-x align-center">
+        <div class="cell medium-10">
+            <div class="grid-x align-right" style="padding-top: 20px;">
+
+        <p>
+            <a asp-action="Create" class="hollow button large">Novo Post</a>
+    </div>
     @foreach (var item in Model)
     {
-        <div class="blog-post">
-            <h3>@Html.DisplayFor(modelItem => item.Titulo)</h3>
-            <p>
-                @Html.DisplayFor(modelItem => item.Texto)<a class="link" asp-action="Details" asp-route-id="@item.Id"> Leia mais</a>
-            </p>
-        </div>
+
+            <div class="blog-post">
+                <h3 style="color: rgb(0, 33, 60);">@Html.DisplayFor(modelItem => item.Titulo)</h3>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Texto)<a class="link" asp-action="Details" asp-route-id="@item.Id">
+                        Leia&nbsp;mais</a>
+                </p>
+            </div>
     }
+        </div>
 </div>
