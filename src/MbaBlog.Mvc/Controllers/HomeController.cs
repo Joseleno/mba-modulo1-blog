@@ -1,6 +1,4 @@
-using MbaBlog.Infrastructure.Repositories;
 using MbaBlog.Mvc.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

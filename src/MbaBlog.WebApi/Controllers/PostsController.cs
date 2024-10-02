@@ -5,7 +5,6 @@ using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Util.Users;
 using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 
 namespace MbaBlog.WebApi.Controllers;
