@@ -117,15 +117,12 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
     public async Task<IActionResult> Delete(Guid id)
     {
         var post = await _repositoryPost.GetById(id);
-        if (!_userUtil.HasAthorization(post!.AutorId))
-        {
-            return RedirectToAction("Index", "Validations");
-        }
 
         if (post == null)
         {
             return NotFound();
         }
+
         return View(post);
     }
 
@@ -135,10 +132,18 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
         var post = await _repositoryPost.GetById(id);
-        if (post != null)
+
+        if (post == null)
         {
-            await _repositoryPost.Delete(post);
+            return NotFound();
         }
+
+        if (!_userUtil.HasAthorization(post!.AutorId))
+        {
+            return RedirectToAction("Index", "Validations");
+        }
+
+            await _repositoryPost.Delete(post);
         return RedirectToAction(nameof(Index));
     }
 
