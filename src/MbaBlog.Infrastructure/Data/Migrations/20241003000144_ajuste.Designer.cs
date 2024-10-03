@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MbaBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MbaBlogDbContext))]
-    [Migration("20241003000144_ajuste")]
-    partial class ajuste
+    [Migration("20241003000144_Ajuste")]
+    partial class Ajuste
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

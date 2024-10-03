@@ -1,5 +1,6 @@
 using MbaBlog.Infrastructure;
 using MbaBlog.Mvc.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace MbaBlog.Mvc;
 public class Program
@@ -7,6 +8,12 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+        {
+            // enables immediate logout, after updating the user's stat.
+            options.ValidationInterval = TimeSpan.Zero;
+        });
 
         builder.Services.AddHttpContextAccessor();
 
@@ -16,6 +23,8 @@ public class Program
 
         builder.Services.AdicionarRepositorio();
         builder.Services.AdicionarUtils();
+
+        
 
         var app = builder.Build();
 
@@ -28,7 +37,7 @@ public class Program
             app.UseExceptionHandler("/Home/Error");
             app.UseHsts();
         }
-
+        
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 

@@ -58,10 +58,11 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
-
+        var user = new Infrastructure.Dtos.UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com"};
 
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
         _repositoryUserRole.Setup(x => x.GetRole(id)).Returns("admin");
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(user);
 
 
         //When
@@ -94,9 +95,11 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
+        var user = new Infrastructure.Dtos.UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com" };
 
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
         _repositoryUserRole.Setup(x => x.GetRole(id)).Returns(string.Empty);
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(user);
 
 
         //When

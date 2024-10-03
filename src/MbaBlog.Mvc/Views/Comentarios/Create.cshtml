@@ -1,7 +1,6 @@
 ﻿@model MbaBlog.Domain.Domain.ComentarioPost
 
 <form asp-action="Create">
-    <input type="hidden" asp-for="PostId" value=@ViewData["PostId"] />
     <div class="grid-x align-center" style="padding-top: 20px;">
         <div class="cell medium-10">
             <div class="blog-post">
@@ -18,7 +17,6 @@
             </div>
         </div>
     </div>
-
 </form>
 
 @section Scripts {
