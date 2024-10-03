@@ -22,14 +22,13 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Comentario,Id, PostId")] ComentarioPost comentarioPost)
+    public async Task<IActionResult> Create([Bind("Comentario, PostId")] ComentarioPost comentarioPost)
     {
+        var autorId = _userUtil.GetUser().UserId;
+        comentarioPost.AutorId = autorId;
+
         if (ModelState.IsValid)
         {
-            var autorId = _userUtil.GetUser().UserId;
-
-            comentarioPost.AutorId = autorId;
-
             await _repositoryComentario.Create(comentarioPost);
 
             return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");

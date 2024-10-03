@@ -5,7 +5,7 @@
 namespace MbaBlog.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ajuste : Migration
+    public partial class Ajuste : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

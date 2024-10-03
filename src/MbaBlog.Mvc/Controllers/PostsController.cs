@@ -18,6 +18,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
     [AllowAnonymous]
     public async Task<IActionResult> Index() 
     {
+
         return View(await _repositoryPost.GetAll());
     }
 
@@ -48,9 +49,15 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Titulo,Texto,CriadoEm")] Post post)
     {
+
         if (ModelState.IsValid)
         {
             post.AutorId = _userUtil.GetUser().UserId;
+
+            if (!_userUtil.HasAthorization(post!.AutorId))
+            {
+                return RedirectToAction("Index", "Validations");
+            }
             await _repositoryPost.Create(post);
 
             return RedirectToAction(nameof(Index));
