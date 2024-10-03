@@ -1,5 +1,4 @@
-﻿using MbaBlog.Domain.Domain;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace MbaBlog.WebApi.Data.Dtos

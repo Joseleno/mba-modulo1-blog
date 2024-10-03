@@ -4,7 +4,6 @@ using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Posts;
-using Azure.Identity;
 
 namespace MbaBlog.Mvc.Controllers;
 

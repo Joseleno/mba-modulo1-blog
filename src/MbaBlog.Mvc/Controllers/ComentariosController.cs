@@ -4,8 +4,6 @@ using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Comentarios;
-using MbaBlog.Infrastructure.Repositories.Posts;
-using Microsoft.Extensions.Hosting;
 
 namespace MbaBlog.Mvc.Controllers;
 

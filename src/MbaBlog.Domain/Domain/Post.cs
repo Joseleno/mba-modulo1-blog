@@ -1,7 +1,6 @@
 ﻿using MbaBlog.Domain.Domain.Commun;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.Text.Json.Serialization;
 
 namespace MbaBlog.Domain.Domain
 {
