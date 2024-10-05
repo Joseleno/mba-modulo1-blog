@@ -31,7 +31,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesDefaultResponseType]
+    [Produces("application/json")]
     public async Task<ActionResult<Post?>> Get(Guid id)
     {
         var result = await _repositoryPost.GetById(id);
@@ -47,7 +47,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary), StatusCodes.Status400BadRequest)]
-    [ProducesDefaultResponseType]
+    [Produces("application/json")]
     public async Task<IActionResult> Create(PostDto postDto)
     {
         if (postDto.AutorId == Guid.Empty || !_iUserUtil.IsUser(postDto.AutorId))
@@ -70,7 +70,7 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
+    [Produces("application/json")]
     public async Task<IActionResult> Edit(Guid id, Post post)
     {
         if (id != post.Id)
@@ -81,11 +81,6 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
         if (!_iUserUtil.IsUser(post!.AutorId))
         {
             return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
-        }
-
-        if (id != post.Id)
-        {
-            return NotFound();
         }
 
         if (ModelState.IsValid)
@@ -111,12 +106,10 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil,
         return NoContent();
     }
 
-
-
     [HttpDelete("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesDefaultResponseType]
+    [Produces("application/json")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var post = await _repositoryPost.GetById(id);

@@ -1,6 +1,7 @@
 ﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
 using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Infrastructure.Repositories.Users;
+using MbaBlog.Util.Autor;
 using MbaBlog.Util.Users;
 
 namespace MbaBlog.Mvc;
@@ -21,6 +22,7 @@ public static class DependencyInjection
     public static IServiceCollection AdicionarUtils(this IServiceCollection services)
     {
         services.AddScoped<IUserUtil, UserUtil>();
+        services.AddScoped<IAutorUtil, AutorUtil>();
 
         return services;
     }

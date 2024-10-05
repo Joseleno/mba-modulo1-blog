@@ -7,6 +7,7 @@ using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
 using MbaBlog.Infrastructure.Repositories.Posts;
 using Microsoft.AspNetCore.Authorization;
+using MbaBlog.Util.Autor;
 
 namespace MbaBlog.WebApi.Controllers;
 
@@ -15,7 +16,7 @@ namespace MbaBlog.WebApi.Controllers;
 [Route("api/[controller]")]
 public class ComentariosController(IRepositoryComentario repositoryComentario,
     IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario,
-    ILogger<ComentariosController> logger) : ControllerBase
+    ILogger<ComentariosController> logger, IAutorUtil autorUtil) : ControllerBase
 {
     private readonly IRepositoryComentario _repositoryComentario = repositoryComentario;
     private readonly IRepositoryPost _repositoryPost = repositoryPost;
@@ -23,6 +24,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario,
     private readonly IMapperComentario _mapperComentario = mapperComentario;
 
     private readonly ILogger<ComentariosController> _logger = logger;
+    private readonly IAutorUtil _autorUtil = autorUtil;
 
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,7 +83,7 @@ public class ComentariosController(IRepositoryComentario repositoryComentario,
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Edit(Guid id, ComentarioDto comentario)
     {
-        if (!_iUserUtil.IsUser(comentario!.AutorId))
+        if (!_iUserUtil.IsUser(comentario!.AutorId) || !_autorUtil.IsAutorComentario(id, comentario.AutorId ))
         {
             return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
         }
@@ -124,10 +126,13 @@ public class ComentariosController(IRepositoryComentario repositoryComentario,
     public async Task<IActionResult> Delete(Guid id)
     {
         var comentario = await _repositoryComentario.GetById(id);
-        if (comentario != null)
+        
+        if (comentario == null || !_iUserUtil.IsUser(comentario!.AutorId) || !_autorUtil.IsAutorComentario(id, comentario.AutorId))
         {
-            await _repositoryComentario.Delete(id);
+            return ValidationProblem(StatusCodes.Status400BadRequest.ToString());
         }
+        
+        await _repositoryComentario.Delete(id);
 
         return NoContent();
     }
