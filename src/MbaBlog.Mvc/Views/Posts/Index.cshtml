@@ -11,7 +11,7 @@
                 <div class="blog-post">
                     <h3 style="color: rgb(0, 33, 60);">@Html.DisplayFor(modelItem => item.Titulo)</h3>
                     <p style="text-align:justify; text-justify: inter-word;">
-                            @Html.DisplayFor(modelItem => item.Texto)<a class="link" asp-action="Details" asp-route-id="@item.Id">
+                            @item.Texto<a class="link" asp-action="Details" asp-route-id="@item.Id">
                             Leia&nbsp;mais</a>
                     </p>
                 </div>
