@@ -1,5 +1,5 @@
-﻿using MbaBlog.Infrastructure.Dtos;
-using MbaBlog.Mvc.Data;
+﻿using MbaBlog.Infrastructure.Data;
+using MbaBlog.Infrastructure.Dtos;
 
 namespace MbaBlog.Infrastructure.Repositories.Users;
 

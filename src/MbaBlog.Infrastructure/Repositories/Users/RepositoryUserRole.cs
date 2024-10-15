@@ -1,4 +1,4 @@
-﻿using MbaBlog.Mvc.Data;
+﻿using MbaBlog.Infrastructure.Data;
 
 namespace MbaBlog.Infrastructure.Repositories.Users;
 
