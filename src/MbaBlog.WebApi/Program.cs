@@ -21,8 +21,16 @@ public class Program
         builder.Services.AdicionarRepositorio();
         builder.Services.AdicionarUtils();
 
-        builder.Services.AddControllers()
-            .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+        builder.Services
+            .AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = false;
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();

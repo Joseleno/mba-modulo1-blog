@@ -1,5 +1,4 @@
 ﻿using MbaBlog.Infrastructure.Data;
-using MbaBlog.Mvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MbaBlog.Domain.Domain;

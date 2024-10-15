@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace MbaBlog.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController(SignInManager<IdentityUser> signInManager,
                           UserManager<IdentityUser> userManager,

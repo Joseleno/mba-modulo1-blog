@@ -8,7 +8,7 @@ using MbaBlog.Infrastructure.Repositories.Posts;
 namespace MbaBlog.Mvc.Controllers;
 
 [Authorize]
-[Route("[controller]")]
+[Route("posts")]
 public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil) : Controller
 {
     private readonly IRepositoryPost _repositoryPost = repositoryPost;

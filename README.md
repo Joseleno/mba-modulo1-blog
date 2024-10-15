@@ -7,6 +7,7 @@ O objetivo principal desenvolver uma aplicação de blog que permite aos usuári
 Descreva livremente mais detalhes do seu projeto aqui.
 
 ### **Autor**
+
 - **Joseleno**
 
 ## **2. Proposta do Projeto**
@@ -38,7 +39,6 @@ O projeto consiste em:
 
 A estrutura do projeto é organizada da seguinte forma:
 
-
 - src/
   - MbaBlog.Domain/ - Projeto onde ficam as classes de dominio
   - MbaBlog.Infrastructure/ - Configuração do EF Core e Repositorios
@@ -69,32 +69,29 @@ A estrutura do projeto é organizada da seguinte forma:
 ### **Passos para Execução**
 
 1. **Clone o Repositório:**
+
    - `git clone https://github.com/Joseleno/mba-modulo1-blog`
    - `cd nome-do-repositorio`
 
 2. **Configuração do Banco de Dados:**
+
    - No arquivo `appsettings.json`, configure a string de conexão do SQL Server.
    - Rode o projeto para que a configuração do Seed crie o banco e popule com os dados básicos
 
 3. **NSTRUÇOES PARA ULIZAR O MOCK DE USUARIOS, POSTS E COMENTARIOS:**
+
    - Executar o projeto MbaBlog.Mvc ou MbaBlo.WebApi para criar o bando de dados e preencher as tabelas.
-   - Para obter usuario com perfil <<ADMIN>> acesse o banco de dados criado e execute o comando:
-   
-     "select u.UserName from AspNetUsers as u
-    join AspNetUserRoles as r on u.Id = r.UserId"
+   - Usuario com perfil <<ADMIN>> acesse o banco de dados criado e execute o comando: "admin@mbablog.com".
+   - Outros usuarios: "usuario@mbablog.com" e "usuario02@mbablog.com".
+   - Todos os usuarios gerados tem a mesma senha: Teste@1234
 
-   - Para obter outros usuarios execute o comando:
-     
-     "select u.UserName from AspNetUsers as u"
-   
-   - Todos os usuarios gerados tem a mesma senha: Teste@1234 
+4. **Executar a Aplicação MVC:**
 
-5. **Executar a Aplicação MVC:**
    - `cd src/MbaBlog.Mvc/`
    - `dotnet run`
    - Acesse a aplicação em: http://localhost:5000
 
-6. **Executar a API:**
+5. **Executar a API:**
    - `cd src/MbaBlog.Api/`
    - `dotnet run`
    - Acesse a documentação da API em: http://localhost:5001/swagger
@@ -112,6 +109,6 @@ http://localhost:5001/swagger
 
 ## **9. Avaliação**
 
-- Este projeto é parte de um curso acadêmico e não aceita contribuições externas. 
+- Este projeto é parte de um curso acadêmico e não aceita contribuições externas.
 - Para feedbacks ou dúvidas utilize o recurso de Issues
 - O arquivo `FEEDBACK.md` é um resumo das avaliações do instrutor e deverá ser modificado apenas por ele.

@@ -13,7 +13,7 @@
                     @Html.DisplayFor(model => model.Texto)
                     <br />
                     <span class="align-left" style="padding-top: 0px; font-style: italic;">
-                        Criado em: @Html.DisplayFor(model => model.CriadoEm)
+                        Criado em: @Model.CriadoEm.ToString("dd/MM/yyyy : HH:mm:ss")
                     </span>
                 </p>
                 <p>
