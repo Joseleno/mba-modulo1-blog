@@ -1,10 +1,9 @@
-﻿using MbaBlog.Domain.Domain;
+﻿using MbaBlog.Data.Domain;
 using MbaBlog.WebApi.Data.Dtos;
 
-namespace MbaBlog.WebApi.Data.Mappers
+namespace MbaBlog.WebApi.Data.Mappers;
+
+public interface IMapperComentario
 {
-    public interface IMapperComentario
-    {
-        ComentarioPost Mapcomentario(ComentarioDto comentario);
-    }
+    ComentarioPost Mapcomentario(ComentarioDto comentario);
 }

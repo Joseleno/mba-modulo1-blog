@@ -1,4 +1,4 @@
-﻿using MbaBlog.Util.Users.Dtos;
+﻿using MbaBlog.Data.Dtos;
 
 namespace MbaBlog.Util.Users;
 

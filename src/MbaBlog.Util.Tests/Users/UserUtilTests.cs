@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
+using MbaBlog.Data.Dtos;
 using MbaBlog.Infrastructure.Repositories.Users;
 using MbaBlog.Util.Exceptions;
 using MbaBlog.Util.Users;
-using MbaBlog.Util.Users.Dtos;
 using Moq;
 
 namespace MbaBlog.Util.Tests.Users;
@@ -58,7 +58,7 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
-        var user = new Infrastructure.Dtos.UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com"};
+        var user = new UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com"};
 
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
         _repositoryUserRole.Setup(x => x.GetRole(id)).Returns("admin");
@@ -95,7 +95,7 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
-        var user = new Infrastructure.Dtos.UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com" };
+        var user = new UserDto { UserId = Guid.NewGuid(), UserName = "teste@teste.com" };
 
         _appIdentityUser.Setup(x => x.GetUserId()).Returns(id);
         _repositoryUserRole.Setup(x => x.GetRole(id)).Returns(string.Empty);
@@ -115,7 +115,7 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
-        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new Infrastructure.Dtos.UserDto());
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new UserDto());
 
         //When
         var result = _service.IsUser(id);
@@ -130,7 +130,7 @@ public class UserUtilTests
     {
         //Given
         var id = Guid.NewGuid();
-        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new Infrastructure.Dtos.UserDto());
+        _repositoryUser.Setup(x => x.GetUser(id)).Returns(new UserDto());
 
         //When
         var result = _service.IsUser(Guid.NewGuid());

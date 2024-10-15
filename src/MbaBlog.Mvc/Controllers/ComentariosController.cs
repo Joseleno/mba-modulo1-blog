@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
-using MbaBlog.Infrastructure.Repositories.Comentarios;
+using MbaBlog.Data.Domain;
+using MbaBlog.Data.Repositories.Comentarios;
 
 namespace MbaBlog.Mvc.Controllers;
 
@@ -25,13 +25,16 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     public async Task<IActionResult> Create([Bind("Comentario, PostId")] ComentarioPost comentarioPost)
     {
         var autorId = _userUtil.GetUser().UserId;
-        comentarioPost.AutorId = autorId;
-
-        if (ModelState.IsValid)
+        if (autorId is not null)
         {
-            await _repositoryComentario.Create(comentarioPost);
+            comentarioPost.AutorId = (Guid)autorId;
 
-            return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");
+            if (ModelState.IsValid)
+            {
+                await _repositoryComentario.Create(comentarioPost);
+
+                return RedirectToAction(comentarioPost.PostId.ToString(), "Posts");
+            }
         }
 
         return View(comentarioPost);

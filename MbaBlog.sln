@@ -5,9 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Mvc", "src\MbaBlog.Mvc\MbaBlog.Mvc.csproj", "{D16BB740-206F-4338-925F-597A70B9D0F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Domain", "src\MbaBlog.Domain\MbaBlog.Domain.csproj", "{63B28D46-920B-4F79-8038-726D50F9F39D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Infrastructure", "src\MbaBlog.Infrastructure\MbaBlog.Infrastructure.csproj", "{FE574258-257F-4C11-86BB-EAFB83E42FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Data", "src\MbaBlog.Data\MbaBlog.Data.csproj", "{FE574258-257F-4C11-86BB-EAFB83E42FD6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MbaBlog.Util", "src\MbaBlog.Util\MbaBlog.Util.csproj", "{3D3D1747-6B87-429B-B58F-F4CA46A25773}"
 EndProject
@@ -25,10 +23,6 @@ Global
 		{D16BB740-206F-4338-925F-597A70B9D0F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D16BB740-206F-4338-925F-597A70B9D0F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D16BB740-206F-4338-925F-597A70B9D0F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63B28D46-920B-4F79-8038-726D50F9F39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63B28D46-920B-4F79-8038-726D50F9F39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63B28D46-920B-4F79-8038-726D50F9F39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63B28D46-920B-4F79-8038-726D50F9F39D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE574258-257F-4C11-86BB-EAFB83E42FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE574258-257F-4C11-86BB-EAFB83E42FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE574258-257F-4C11-86BB-EAFB83E42FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU

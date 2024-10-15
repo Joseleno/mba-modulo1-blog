@@ -1,7 +1,7 @@
-﻿using MbaBlog.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using MbaBlog.Domain.Domain;
+using MbaBlog.Data.Data;
+using MbaBlog.Data.Domain;
 
 namespace MbaBlog.Mvc.Helpers
 {

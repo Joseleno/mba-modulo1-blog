@@ -1,9 +1,10 @@
-﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
-using MbaBlog.Infrastructure.Repositories.Posts;
-using MbaBlog.Util.Users;
+﻿using MbaBlog.Util.Users;
 using MbaBlog.Infrastructure.Repositories.Users;
 using MbaBlog.WebApi.Data.Mappers;
 using MbaBlog.Util.Autor;
+using MbaBlog.Data.Repositories.Comentarios;
+using MbaBlog.Data.Repositories.Posts;
+using MbaBlog.Data.Repositories.Users;
 
 namespace MbaBlog.WebApi;
 

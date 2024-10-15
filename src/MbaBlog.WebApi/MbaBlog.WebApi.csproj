@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MbaBlog.Domain\MbaBlog.Domain.csproj" />
-    <ProjectReference Include="..\MbaBlog.Infrastructure\MbaBlog.Infrastructure.csproj" />
+    <ProjectReference Include="..\MbaBlog.Data\MbaBlog.Data.csproj" />
     <ProjectReference Include="..\MbaBlog.Util\MbaBlog.Util.csproj" />
   </ItemGroup>
 

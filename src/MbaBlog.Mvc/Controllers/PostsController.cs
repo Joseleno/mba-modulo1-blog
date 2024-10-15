@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MbaBlog.Domain.Domain;
 using Microsoft.AspNetCore.Authorization;
 using MbaBlog.Util.Users;
-using MbaBlog.Infrastructure.Repositories.Posts;
+using MbaBlog.Data.Repositories.Posts;
+using MbaBlog.Data.Domain;
 
 namespace MbaBlog.Mvc.Controllers;
 
@@ -49,10 +49,12 @@ public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil)
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Titulo,Texto,CriadoEm")] Post post)
     {
+        var autorId = _userUtil.GetUser().UserId;
 
-        if (ModelState.IsValid)
+        if (ModelState.IsValid && autorId is not null)
         {
-            post.AutorId = _userUtil.GetUser().UserId;
+            
+            post.AutorId = (Guid)autorId;
 
             if (!_userUtil.HasAthorization(post!.AutorId))
             {

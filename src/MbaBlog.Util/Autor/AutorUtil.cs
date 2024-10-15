@@ -1,5 +1,5 @@
-﻿using MbaBlog.Infrastructure.Repositories.Comentarios;
-using MbaBlog.Infrastructure.Repositories.Posts;
+﻿using MbaBlog.Data.Repositories.Comentarios;
+using MbaBlog.Data.Repositories.Posts;
 
 namespace MbaBlog.Util.Autor;
 

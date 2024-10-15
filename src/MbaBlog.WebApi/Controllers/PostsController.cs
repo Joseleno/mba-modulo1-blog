@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MbaBlog.Domain.Domain;
-using MbaBlog.Infrastructure.Repositories.Posts;
 using MbaBlog.Util.Users;
 using MbaBlog.WebApi.Data.Dtos;
 using MbaBlog.WebApi.Data.Mappers;
 using Microsoft.AspNetCore.Authorization;
+using MbaBlog.Data.Repositories.Posts;
+using MbaBlog.Data.Domain;
 
 namespace MbaBlog.WebApi.Controllers;
 

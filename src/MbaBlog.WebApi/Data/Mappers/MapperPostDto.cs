@@ -1,20 +1,19 @@
-﻿using MbaBlog.Domain.Domain;
+﻿using MbaBlog.Data.Domain;
 using MbaBlog.WebApi.Data.Dtos;
 
-namespace MbaBlog.WebApi.Data.Mappers
-{
-    public class MapperPostDto : IMapperPostDto
-    {
-        public Post MapPost(PostDto postDto)
-        {
+namespace MbaBlog.WebApi.Data.Mappers;
 
-            return new Post
-            {
-                AutorId = postDto.AutorId,
-                Titulo = postDto.Titulo,
-                Texto = postDto.Texto,
-                CriadoEm = DateTime.Now
-            };
-        }
+public class MapperPostDto : IMapperPostDto
+{
+    public Post MapPost(PostDto postDto)
+    {
+
+        return new Post
+        {
+            AutorId = postDto.AutorId,
+            Titulo = postDto.Titulo,
+            Texto = postDto.Texto,
+            CriadoEm = DateTime.Now
+        };
     }
 }

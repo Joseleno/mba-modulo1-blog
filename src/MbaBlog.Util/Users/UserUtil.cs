@@ -1,6 +1,6 @@
-﻿using MbaBlog.Infrastructure.Repositories.Users;
+﻿using MbaBlog.Data.Dtos;
+using MbaBlog.Infrastructure.Repositories.Users;
 using MbaBlog.Util.Exceptions;
-using MbaBlog.Util.Users.Dtos;
 
 namespace MbaBlog.Util.Users;
 
