@@ -13,7 +13,7 @@ namespace MbaBlog.WebApi.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/comentarios")]
 public class ComentariosController(IRepositoryComentario repositoryComentario,
     IRepositoryPost repositoryPost, IUserUtil iUserUtil, IMapperComentario mapperComentario,
     ILogger<ComentariosController> logger, IAutorUtil autorUtil) : ControllerBase

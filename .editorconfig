@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# API1003: Action methods on ApiController instances do not require explicit model validation check
+dotnet_diagnostic.API1003.severity = none

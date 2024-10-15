@@ -11,7 +11,7 @@ namespace MbaBlog.WebApi.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/posts")]
 public class PostsController(IRepositoryPost repositoryPost, IUserUtil userUtil, IMapperPostDto mapperDto, ILogger<PostsController> logger) : ControllerBase
 {
     private readonly ILogger<PostsController> _logger = logger;
