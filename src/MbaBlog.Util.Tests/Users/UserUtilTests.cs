@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using MbaBlog.Data.Dtos;
 using MbaBlog.Infrastructure.Repositories.Users;
-using MbaBlog.Util.Exceptions;
 using MbaBlog.Util.Users;
 using Moq;
 
@@ -40,18 +39,18 @@ public class UserUtilTests
 
     }
 
-    [Fact]
-    public void QuandoUsuaarioNaoLogado_DeveRetornarNotFoundException()
-    {
-        //Given
+    //[Fact]
+    //public void QuandoUsuaarioNaoLogado_DeveRetornarNotFoundException()
+    //{
+    //    //Given
 
-        _appIdentityUser.Setup(x => x.GetUserId());
-        _appIdentityUser.Setup(x => x.GetUsername());
+    //    _appIdentityUser.Setup(x => x.GetUserId());
+    //    _appIdentityUser.Setup(x => x.GetUsername());
 
-        //Then
+    //    //Then
 
-        Assert.Throws<NotFoundException>(() => _service.GetUser());
-    }
+    //    Assert.Throws<NotFoundException>(() => _service.GetUser());
+    //}
 
     [Fact]
     public void QuandoUsuarioAdmin_DeveRetornarTrue()

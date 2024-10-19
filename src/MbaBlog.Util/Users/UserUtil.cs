@@ -1,6 +1,5 @@
 ﻿using MbaBlog.Data.Dtos;
 using MbaBlog.Infrastructure.Repositories.Users;
-using MbaBlog.Util.Exceptions;
 
 namespace MbaBlog.Util.Users;
 
@@ -13,10 +12,6 @@ public class UserUtil(IAppIdentityUser appIdentityUser, IRepositoryUserRole iUse
     {
         var userId = _appIdentityUser.GetUserId();
         var username = _appIdentityUser.GetUsername();
-        if (userId == Guid.Empty || username == null)
-        {
-            throw new NotFoundException("Usuario nao cadastrado");
-        }
 
         return new UserDto() { UserId = userId, UserEmail = username };
     }

@@ -24,10 +24,10 @@ public class ComentariosController(IRepositoryComentario repositoryComentario, I
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Comentario, PostId")] ComentarioPost comentarioPost)
     {
-        var autorId = _userUtil.GetUser().UserId;
-        if (autorId is not null)
+        var autor = _userUtil.GetUser();
+        if (autor is not null)
         {
-            comentarioPost.AutorId = (Guid)autorId;
+            comentarioPost.AutorId = (Guid)autor.UserId;
 
             if (ModelState.IsValid)
             {
