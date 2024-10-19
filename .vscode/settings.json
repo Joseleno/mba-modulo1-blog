@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:mba-modulo1-blog}/src/MbaBlog.Mvc/c:\\SQLITEDATABASES\\LocalDatabase.db",
+            "name": "test"
+        }
+    ]
+}
