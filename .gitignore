@@ -398,7 +398,9 @@ FodyWeavers.xsd
 *.sln.iml
 /src/MbaBlog.Mvc/appsettings.Development.json
 .DS_Store
-src/MbaBlog.Mvc/c:/SQLITEDATABASES/LocalDatabase.db
-src/MbaBlog.Mvc/c:/SQLITEDATABASES/LocalDatabase.db
-src/MbaBlog.Mvc/c:/SQLITEDATABASES/LocalDatabase.db-shm
-src/MbaBlog.Mvc/c:/SQLITEDATABASES/LocalDatabase.db-wal
+
+# SQLite
+*.db
+*.db
+*.db-shm
+*.db-wal
