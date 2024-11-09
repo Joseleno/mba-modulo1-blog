@@ -21,7 +21,6 @@ public class DbMigrationHelps
         var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var myBlogDbContext = scope.ServiceProvider.GetRequiredService<MbaBlogDbContext>();
 
-
         if (env.IsDevelopment())
         {
             await applicationDbContext.Database.MigrateAsync();
@@ -30,7 +29,6 @@ public class DbMigrationHelps
 
             await EnsureSeedPosts(applicationDbContext, myBlogDbContext);
         }
-
     }
 
     public static async Task EnsureSeedPosts(ApplicationDbContext applicationDbContext, MbaBlogDbContext myBlogDbContext)
@@ -41,20 +39,24 @@ public class DbMigrationHelps
         }
         var autorId = Guid.NewGuid();
         var autorId01 = Guid.NewGuid();
-        var autorId002 = Guid.NewGuid();
+        var adminId = Guid.NewGuid();
+
+        var nameUser = "usuario@mbablog.com";
+        var nameUser02 = "usuario02@mbablog.com";
+        var nameUserAdmin = "admin@mbablog.com";
 
         var roleId = Guid.NewGuid();
 
-        await applicationDbContext.Users.AddAsync(MockUser(autorId));
-        await applicationDbContext.Users.AddAsync(MockUser(autorId01));
-        await applicationDbContext.Users.AddAsync(MockUser(autorId002));
+        await applicationDbContext.Users.AddAsync(MockUser(autorId, nameUser));
+        await applicationDbContext.Users.AddAsync(MockUser(autorId01, nameUser02));
+        await applicationDbContext.Users.AddAsync(MockUser(adminId, nameUserAdmin));
 
         await applicationDbContext.Roles.AddAsync(MockRoler(roleId));
 
         await applicationDbContext.SaveChangesAsync();
 
         await applicationDbContext.Set<IdentityUserRole<string>>()
-            .AddAsync(new IdentityUserRole<string> { RoleId = roleId.ToString(), UserId = autorId002.ToString() });
+            .AddAsync(new IdentityUserRole<string> { RoleId = roleId.ToString(), UserId = adminId.ToString() });
 
         await applicationDbContext.SaveChangesAsync();
 
@@ -86,18 +88,15 @@ public class DbMigrationHelps
         await myBlogDbContext.SaveChangesAsync();
     }
 
-    private static IdentityUser MockUser(Guid autorId)
+    private static IdentityUser MockUser(Guid autorId, string name)
     {
-        Random random = new();
-        string sufixo = random.Next().ToString();
-        var userName = "user" + sufixo + "@user.com";
         return new IdentityUser
         {
             Id = autorId.ToString(),
-            UserName = userName,
-            NormalizedUserName = userName.ToUpper(),
-            Email = userName,
-            NormalizedEmail = userName.ToUpper(),
+            UserName = name,
+            NormalizedUserName = name.ToUpper(),
+            Email = name,
+            NormalizedEmail = name.ToUpper(),
             AccessFailedCount = 0,
             LockoutEnabled = false,
             PasswordHash = "AQAAAAIAAYagAAAAEIuDQN6KV6vlgvrhjP+t9BDGEUFtMdfUoa4qdf0YPxxhF8OZxKD8/YZODRrynoi5+w==",
@@ -107,7 +106,6 @@ public class DbMigrationHelps
             SecurityStamp = Guid.NewGuid().ToString(),
         };
     }
-
 
     private static IdentityRole MockRoler(Guid roleId)
     {
@@ -203,6 +201,5 @@ public class DbMigrationHelps
         listCom.Add(com1);
 
         return listCom;
-
     }
 }
